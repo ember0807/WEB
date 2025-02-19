@@ -1,87 +1,104 @@
-﻿body {
+﻿/* Общие стили */
+body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Цвет фона для всего документа */
 }
 
+/* Стили для таблицы */
 .periodic-table {
     display: grid;
-    grid-template-columns: repeat(18, 60px);
-    gap: 5px;
-    max-width: 1200px;
-    margin: 20px auto;
+    grid-template-columns: repeat(18, 60px); /* 18 столбцов по 60px */
+    gap: 5px; /* Расстояние между ячейками */
+    max-width: 1200px; /* Максимальная ширина таблицы */
+    margin: 20px auto; /* Выравнивание по центру */
+    padding: 20px; /* Внутренние отступы у таблицы */
+    border: 1px solid #ccc; /* Граница вокруг таблицы */
+    border-radius: 10px; /* Скругление углов у таблицы */
+    background-color: white; /* Фон таблицы */
 }
 
+/* Стили для периодов */
+.period {
+    grid-column: span 18; /* Занимаем всю ширину */
+    padding: 10px 0; /* Внутренние отступы */
+    font-weight: bold; /* Жирный текст */
+    text-align: center; /* Центрование текста */
+    background-color: #e0e0e0; /* Фон для периодов */
+    border-radius: 5px; /* Скругление углов */
+}
+
+/* Стили для элементов */
 .element {
-    position: relative; /* Необходимо для правильного позиционирования всплывающего окна */
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: background-color 0.3s, opacity 0.3s; /* Добавлено для прозрачности */
+    position: relative; /* Для позиционирования всплывающего окна */
+    padding: 20px; /* Внутренние отступы */
+    text-align: center; /* Центрование текста */
+    border: 1px solid #ccc; /* Рамка для элементов */
+    border-radius: 5px; /* Скругление углов */
+    transition: background-color 0.3s, opacity 0.3s; /* Плавный переход для фона и прозрачности */
 }
 
-    /* Специальный стиль для всплывающего окна */
+    /* Специальный стиль для всплывающего окна при наведении */
     .element:hover::after {
-        content: attr(data-tooltip); /* Используем текст из атрибута data-tooltip */
+        content: attr(data-tooltip);
         position: absolute;
-        bottom: 100%; /* Позиция над элементом */
+        bottom: 100%; /* Всплывающее окно будет выше элемента */
         left: 50%;
-        transform: translateX(-50%);
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 5px;
-        white-space: nowrap; /* Текст не будет переноситься */
-        z-index: 10;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transform: translateX(-50%); /* Центрируем всплывающее окно */
+        background-color: white; /* Фон всплывающего окна */
+        border: 1px solid #ccc; /* Рамка */
+        border-radius: 5px; /* Скругление углов */
+        padding: 5px; /* Внутренние отступы */
+        white-space: nowrap; /* Запрет переноса текста */
+        z-index: 10; /* На переднем плане */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень для всплывающего окна */
     }
 
-/* Группы элементов */
-.group-1 {
-    background-color: #ffcccc;
-}
-/* Щелочные металлы */
-.group-2 {
-    background-color: #ccffcc;
-}
-/* Щелочноземельные металлы */
-.group-3 {
-    background-color: #ccccff;
-}
-/* Переходные металлы */
-.group-13 {
-    background-color: #ffe0b3;
-}
-/* Группа 13 */
-.group-14 {
-    background-color: #e0b3ff;
-}
-/* Группа 14 */
-.group-15 {
-    background-color: #ffd1b3;
-}
-/* Группа 15 */
-.group-16 {
-    background-color: #ffffb3;
-}
-/* Группа 16 */
-.group-17 {
-    background-color: #ffb3b3;
-}
-/* Галогены */
-.group-18 {
-    background-color: #b3e0ff;
-}
-/* Инертные газы */
-.lanthanides {
-    background-color: #b3ffcc;
-}
-/* Лантаноиды */
-.actinides {
-    background-color: #ffccff;
-}
-/* Актиноиды */
+    /* Изменение прозрачности элемента при наведении */
+    .element:hover {
+        opacity: 0.8; /* Уменьшение прозрачности при наведении */
+    }
 
-.element:hover {
-    opacity: 0.8; /* Изменение прозрачности при наведении */
+/* Стили групп элементов */
+.group-1 {
+    background-color: #ffcccc; /* Цвет группы 1 */
+}
+
+.group-2 {
+    background-color: #ccffcc; /* Цвет группы 2 (щелочные металлы) */
+}
+
+.group-3 {
+    background-color: #ccccff; /* Цвет группы 3 (щелочноземельные металлы) */
+}
+
+.group-13 {
+    background-color: #ffe0b3; /* Цвет группы 13 (переходные металлы) */
+}
+
+.group-14 {
+    background-color: #e0b3ff; /* Цвет группы 14 */
+}
+
+.group-15 {
+    background-color: #ffd1b3; /* Цвет группы 15 */
+}
+
+.group-16 {
+    background-color: #ffffb3; /* Цвет группы 16 */
+}
+
+.group-17 {
+    background-color: #ffb3b3; /* Цвет группы 17 (галогены) */
+}
+
+.group-18 {
+    background-color: #b3e0ff; /* Цвет группы 18 (инертные газы) */
+}
+
+.lanthanides {
+    background-color: #b3ffcc; /* Цвет для лантаноидов */
+}
+
+.actinides {
+    background-color: #ffccff; /* Цвет для актиноидов */
 }

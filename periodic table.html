@@ -5,113 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Интерактивная таблица Менделеева</title>
     <link rel="stylesheet" href="StyleSheet1.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        .periodic-table {
-            display: grid;
-            grid-template-columns: repeat(18, 60px);
-            gap: 5px;
-            max-width: 1200px;
-            margin: 20px auto;
-        }
-
-        .element {
-            position: relative; /* Необходимо для всплывающего окна */
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        /* Группа 1 - Щелочные металлы */
-        .group-1 {
-            background-color: #ffcccc;
-        }
-        /* Группа 2 - Щелочноземельные металлы */
-        .group-2 {
-            background-color: #ccffcc;
-        }
-        /* Группа 3-12 - Переходные металлы */
-        .group-3 {
-            background-color: #ccccff;
-        }
-        /* Группа 13 */
-        .group-13 {
-            background-color: #ffe0b3;
-        }
-        /* Группа 14 */
-        .group-14 {
-            background-color: #e0b3ff;
-        }
-        /* Группа 15 */
-        .group-15 {
-            background-color: #ffd1b3;
-        }
-        /* Группа 16 */
-        .group-16 {
-            background-color: #ffffb3;
-        }
-        /* Группа 17 - Галогены */
-        .group-17 {
-            background-color: #ffb3b3;
-        }
-        /* Группа 18 - Инертные газы */
-        .group-18 {
-            background-color: #b3e0ff;
-        }
-        /* Лантаноиды */
-        .lanthanides {
-            background-color: #b3ffcc;
-        }
-        /* Актиноиды */
-        .actinides {
-            background-color: #ffccff;
-        }
-
-        /* Всплывающее окно */
-        .element:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 5px;
-            white-space: nowrap;
-            z-index: 10;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            display: block;
-            opacity: 1;
-        }
-    </style>
 </head>
 <body>
     <div class="periodic-table">
-        <!-- Группа 1 -->
+        <div class="period" colspan="18">Период 1</div>
         <div class="element group-1" data-tooltip="Водород, атомный номер 1, легкий газ.">H</div>
+        <div class="empty"></div>  <!-- Пустая ячейка для группы 2 -->
+
+        <div class="period" colspan="18">Период 2</div>
         <div class="element group-1" data-tooltip="Литий, атомный номер 3, металл.">Li</div>
-        <div class="element group-1" data-tooltip="Натрий, атомный номер 11, металл.">Na</div>
-        <div class="element group-1" data-tooltip="Калий, атомный номер 19, металл.">K</div>
-        <div class="element group-1" data-tooltip="Рубидий, атомный номер 37, металл.">Rb</div>
-        <div class="element group-1" data-tooltip="Цезий, атомный номер 55, металл.">Cs</div>
-        <div class="element group-1" data-tooltip="Франций, атомный номер 87, радиоактивный металл.">Fr</div>
-
-        <!-- Группа 2 -->
         <div class="element group-2" data-tooltip="Бериллий, атомный номер 4, металл.">Be</div>
-        <div class="element group-2" data-tooltip="Магний, атомный номер 12, металл.">Mg</div>
-        <div class="element group-2" data-tooltip="Кальций, атомный номер 20, металл.">Ca</div>
-        <div class="element group-2" data-tooltip="Стронций, атомный номер 38, металл.">Sr</div>
-        <div class="element group-2" data-tooltip="Барий, атомный номер 56, металл.">Ba</div>
-        <div class="element group-2" data-tooltip="Радий, атомный номер 88, радиоактивный металл.">Ra</div>
+        <div class="element group-13" data-tooltip="Бор, атомный номер 5.">B</div>
+        <div class="element group-14" data-tooltip="Углерод, атомный номер 6.">C</div>
+        <div class="element group-15" data-tooltip="Азот, атомный номер 7.">N</div>
+        <div class="element group-16" data-tooltip="Кислород, атомный номер 8.">O</div>
+        <div class="element group-17" data-tooltip="Фтор, атомный номер 9.">F</div>
+        <div class="element group-18" data-tooltip="Гелий, атомный номер 2.">He</div>
 
-        <!-- Группа 3-12 (Переходные металлы) -->
+        <div class="period" colspan="18">Период 3</div>
+        <div class="element group-1" data-tooltip="Натрий, атомный номер 11, металл.">Na</div>
+        <div class="element group-2" data-tooltip="Магний, атомный номер 12, металл.">Mg</div>
+        <div class="element group-13" data-tooltip="Алюминий, атомный номер 13.">Al</div>
+        <div class="element group-14" data-tooltip="Кремний, атомный номер 14.">Si</div>
+        <div class="element group-15" data-tooltip="Фосфор, атомный номер 15.">P</div>
+        <div class="element group-16" data-tooltip="Сера, атомный номер 16.">S</div>
+        <div class="element group-17" data-tooltip="Хлор, атомный номер 17.">Cl</div>
+        <div class="element group-18" data-tooltip="Аргон, атомный номер 18.">Ar</div>
+
+        <div class="period" colspan="18">Период 4</div>
+        <div class="element group-1" data-tooltip="Калий, атомный номер 19, металл.">K</div>
+        <div class="element group-2" data-tooltip="Кальций, атомный номер 20, металл.">Ca</div>
         <div class="element group-3" data-tooltip="Скандий, атомный номер 21, металл.">Sc</div>
         <div class="element group-3" data-tooltip="Титан, атомный номер 22, металл.">Ti</div>
         <div class="element group-3" data-tooltip="Ванадий, атомный номер 23, металл.">V</div>
@@ -122,6 +45,10 @@
         <div class="element group-3" data-tooltip="Никель, атомный номер 28, металл.">Ni</div>
         <div class="element group-3" data-tooltip="Медь, атомный номер 29, металл.">Cu</div>
         <div class="element group-3" data-tooltip="Цинк, атомный номер 30, металл.">Zn</div>
+
+        <div class="period" colspan="18">Период 5</div>
+        <div class="element group-1" data-tooltip="Рубидий, атомный номер 37, металл.">Rb</div>
+        <div class="element group-2" data-tooltip="Стронций, атомный номер 38, металл.">Sr</div>
         <div class="element group-3" data-tooltip="Иттрий, атомный номер 39, металл.">Y</div>
         <div class="element group-3" data-tooltip="Цирконий, атомный номер 40, металл.">Zr</div>
         <div class="element group-3" data-tooltip="Ниобий, атомный номер 41, металл.">Nb</div>
@@ -129,78 +56,13 @@
         <div class="element group-3" data-tooltip="Технеций, атомный номер 43, металл.">Tc</div>
         <div class="element group-3" data-tooltip="Рутений, атомный номер 44, металл.">Ru</div>
         <div class="element group-3" data-tooltip="Родий, атомный номер 45, металл.">Rh</div>
-        <div class="element group-3" data-tooltip=" palladium, атомный номер 46, металл.">Pd</div>
+        <div class="element group-3" data-tooltip="Палладий, атомный номер 46, металл.">Pd</div>
         <div class="element group-3" data-tooltip="Серебро, атомный номер 47, металл.">Ag</div>
         <div class="element group-3" data-tooltip="Кадмий, атомный номер 48, металл.">Cd</div>
-        <div class="element group-3" data-tooltip="Гафний, атомный номер 72, металл.">Hf</div>
-        <div class="element group-3" data-tooltip="Тантал, атомный номер 73, металл.">Ta</div>
-        <div class="element group-3" data-tooltip="Вольфрам, атомный номер 74, металл.">W</div>
-        <div class="element group-3" data-tooltip="Рений, атомный номер 75, металл.">Re</div>
-        <div class="element group-3" data-tooltip="Осмий, атомный номер 76, металл.">Os</div>
-        <div class="element group-3" data-tooltip="Иридий, атомный номер 77, металл.">Ir</div>
-        <div class="element group-3" data-tooltip="Платина, атомный номер 78, металл.">Pt</div>
-        <div class="element group-3" data-tooltip="Золото, атомный номер 79, металл.">Au</div>
-        <div class="element group-3" data-tooltip="Ртуть, атомный номер 80, металл.">Hg</div>
-        <div class="element group-3" data-tooltip="Рutherfordium, атомный номер 104, металл.">Rf</div>
-        <div class="element group-3" data-tooltip="Dubnium, атомный номер 105, металл.">Db</div>
-        <div class="element group-3" data-tooltip="Seaborgium, атомный номер 106, металл.">Sg</div>
-        <div class="element group-3" data-tooltip="Bohrium, атомный номер 107, металл.">Bh</div>
-        <div class="element group-3" data-tooltip="Hassium, атомный номер 108, металл.">Hs</div>
-        <div class="element group-3" data-tooltip="Meitnerium, атомный номер 109, металл.">Mt</div>
-        <div class="element group-3" data-tooltip="Darmstadtium, атомный номер 110, металл.">Ds</div>
-        <div class="element group-3" data-tooltip="Rutherfordium, атомный номер 111, металл.">Rg</div>
 
-        <!-- Группа 13 -->
-        <div class="element group-13" data-tooltip="Бор, атомный номер 5.">B</div>
-        <div class="element group-13" data-tooltip="Алюминий, атомный номер 13.">Al</div>
-        <div class="element group-13" data-tooltip="Галлий, атомный номер 31.">Ga</div>
-        <div class="element group-13" data-tooltip="Индий, атомный номер 49.">In</div>
-        <div class="element group-13" data-tooltip="Таллий, атомный номер 81.">Tl</div>
-        <div class="element group-13" data-tooltip="Нихоний, атомный номер 113.">Nh</div>
-
-        <!-- Группа 14 -->
-        <div class="element group-14" data-tooltip="Углерод, атомный номер 6.">C</div>
-        <div class="element group-14" data-tooltip="Кремний, атомный номер 14.">Si</div>
-        <div class="element group-14" data-tooltip="Германий, атомный номер 32.">Ge</div>
-        <div class="element group-14" data-tooltip="Олово, атомный номер 50.">Sn</div>
-        <div class="element group-14" data-tooltip="Свинец, атомный номер 82.">Pb</div>
-        <div class="element group-14" data-tooltip="Флеровий, атомный номер 114.">Fl</div>
-
-        <!-- Группа 15 -->
-        <div class="element group-15" data-tooltip="Азот, атомный номер 7.">N</div>
-        <div class="element group-15" data-tooltip="Фосфор, атомный номер 15.">P</div>
-        <div class="element group-15" data-tooltip="Мышьяк, атомный номер 33.">As</div>
-        <div class="element group-15" data-tooltip="Селен, атомный номер 34.">Se</div>
-        <div class="element group-15" data-tooltip="Теллур, атомный номер 52.">Te</div>
-        <div class="element group-15" data-tooltip="Полоний, атомный номер 84.">Po</div>
-        <div class="element group-15" data-tooltip="Ливерморий, атомный номер 116.">Lv</div>
-
-        <!-- Группа 16 (Оксигены) -->
-        <div class="element group-16" data-tooltip="Кислород, атомный номер 8.">O</div>
-        <div class="element group-16" data-tooltip="Сера, атомный номер 16.">S</div>
-        <div class="element group-16" data-tooltip="Селен, атомный номер 34.">Se</div>
-        <div class="element group-16" data-tooltip="Теллур, атомный номер 52.">Te</div>
-        <div class="element group-16" data-tooltip="Полоний, атомный номер 84.">Po</div>
-        <div class="element group-16" data-tooltip="Ливерморий, атомный номер 116.">Lv</div>
-
-        <!-- Группа 17 (Галогены) -->
-        <div class="element group-17" data-tooltip="Фтор, атомный номер 9.">F</div>
-        <div class="element group-17" data-tooltip="Хлор, атомный номер 17.">Cl</div>
-        <div class="element group-17" data-tooltip="Бром, атомный номер 35.">Br</div>
-        <div class="element group-17" data-tooltip="Йод, атомный номер 53.">I</div>
-        <div class="element group-17" data-tooltip="Астат, атомный номер 85.">At</div>
-        <div class="element group-17" data-tooltip="Теннесин, атомный номер 117.">Ts</div>
-
-        <!-- Группа 18 (Инертные газы) -->
-        <div class="element group-18" data-tooltip="Гелий, атомный номер 2.">He</div>
-        <div class="element group-18" data-tooltip="Неон, атомный номер 10.">Ne</div>
-        <div class="element group-18" data-tooltip="Аргон, атомный номер 18.">Ar</div>
-        <div class="element group-18" data-tooltip="Криптон, атомный номер 36.">Kr</div>
-        <div class="element group-18" data-tooltip="Ксенон, атомный номер 54.">Xe</div>
-        <div class="element group-18" data-tooltip="Радон, атомный номер 86.">Rn</div>
-        <div class="element group-18" data-tooltip="Оганесон, атомный номер 118.">Og</div>
-
-        <!-- Лантаноиды -->
+        <div class="period" colspan="18">Период 6</div>
+        <div class="element group-1" data-tooltip="Цезий, атомный номер 55, металл.">Cs</div>
+        <div class="element group-2" data-tooltip="Барий, атомный номер 56, металл.">Ba</div>
         <div class="element lanthanides" data-tooltip="Лантан, атомный номер 57.">La</div>
         <div class="element lanthanides" data-tooltip="Церий, атомный номер 58.">Ce</div>
         <div class="element lanthanides" data-tooltip="Прасеодим, атомный номер 59.">Pr</div>
@@ -217,7 +79,9 @@
         <div class="element lanthanides" data-tooltip="Иттербий, атомный номер 70.">Yb</div>
         <div class="element lanthanides" data-tooltip="Лютеций, атомный номер 71.">Lu</div>
 
-        <!-- Актиноиды -->
+        <div class="period" colspan="18">Период 7</div>
+        <div class="element group-1" data-tooltip="Франций, атомный номер 87, радиоактивный металл.">Fr</div>
+        <div class="element group-2" data-tooltip="Радий, атомный номер 88, радиоактивный металл.">Ra</div>
         <div class="element actinides" data-tooltip="Актиний, атомный номер 89.">Ac</div>
         <div class="element actinides" data-tooltip="Торий, атомный номер 90.">Th</div>
         <div class="element actinides" data-tooltip="Плутон, атомный номер 91.">Pa</div>
