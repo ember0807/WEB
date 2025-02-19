@@ -1,0 +1,87 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 60px);
+    gap: 5px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.element {
+    position: relative; /* Необходимо для правильного позиционирования всплывающего окна */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s, opacity 0.3s; /* Добавлено для прозрачности */
+}
+
+    /* Специальный стиль для всплывающего окна */
+    .element:hover::after {
+        content: attr(data-tooltip); /* Используем текст из атрибута data-tooltip */
+        position: absolute;
+        bottom: 100%; /* Позиция над элементом */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+        white-space: nowrap; /* Текст не будет переноситься */
+        z-index: 10;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+/* Группы элементов */
+.group-1 {
+    background-color: #ffcccc;
+}
+/* Щелочные металлы */
+.group-2 {
+    background-color: #ccffcc;
+}
+/* Щелочноземельные металлы */
+.group-3 {
+    background-color: #ccccff;
+}
+/* Переходные металлы */
+.group-13 {
+    background-color: #ffe0b3;
+}
+/* Группа 13 */
+.group-14 {
+    background-color: #e0b3ff;
+}
+/* Группа 14 */
+.group-15 {
+    background-color: #ffd1b3;
+}
+/* Группа 15 */
+.group-16 {
+    background-color: #ffffb3;
+}
+/* Группа 16 */
+.group-17 {
+    background-color: #ffb3b3;
+}
+/* Галогены */
+.group-18 {
+    background-color: #b3e0ff;
+}
+/* Инертные газы */
+.lanthanides {
+    background-color: #b3ffcc;
+}
+/* Лантаноиды */
+.actinides {
+    background-color: #ffccff;
+}
+/* Актиноиды */
+
+.element:hover {
+    opacity: 0.8; /* Изменение прозрачности при наведении */
+}
