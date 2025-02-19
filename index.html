@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="StyleSheet2.css">*/
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden; /* Скрыть прокрутку */
+            animation: fadeIn 1s ease-in; /* Добавить анимацию */
+            position: relative; /* Позиционирование для контента */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Подвести видео под контент */
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Чтобы видео занимало весь фон */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff; /* Цвет заголовка */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Тень для заголовка */
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #ffffff; /* Цвет текста */
+        }
+
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Промежутки между кнопками */
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            background-color: #0078d4; /* Фоновый цвет для кнопок (Windows) */
+            color: #ffffff; /* Цвет текста для кнопок */
+            padding: 15px; /* Отступы */
+            border-radius: 8px; /* Закругление углов */
+            font-size: 1.2rem;
+            text-align: center; /* Центрируем текст */
+            transition: background-color 0.3s ease, transform 0.2s; /* Плавный переход */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Тень для кнопок */
+        }
+
+            a:hover {
+                background-color: #005ea6; /* Цвет кнопки при наведении */
+                transform: scale(1.05); /* Увеличение кнопки при наведении */
+            }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem; /* Уменьшенный размер заголовка для мобильных */ 
+            }
+
+            a {
+                font-size: 1rem; /* Уменьшенный размер текста кнопок для мобильных */
+                padding: 10px;  /*Уменьшенные отступы для кнопок на мобильных */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop>
+        <source src="1123.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <!--<h1>Добро пожаловать на главную страницу</h1>
+    <p>Выберите страницу, на которую хотите перейти:</p>-->
+
+    <div class="link-container">
+        <a href="article.html" class="link-button">Статья</a>
+        <a href="list.html" class="link-button">Список</a>
+        <a href="periodic table.html" class="link-button">Таблица</a>
+    </div>
+
+    <p id='head1' class='header'>Добро пожаловать на главную страницу</p>
+    <p id='head2' class='header'>Выберите страницу, на которую хотите перейти:</p>
+
+    <div class='light x1'></div>
+    <div class='light x2'></div>
+    <div class='light x3'></div>
+    <div class='light x4'></div>
+    <div class='light x5'></div>
+    <div class='light x6'></div>
+    <div class='light x7'></div>
+    <div class='light x8'></div>
+    <div class='light x9'></div>
+
+</body>
+</html>
