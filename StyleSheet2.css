@@ -90,7 +90,7 @@ button:hover{
     margin: auto;
 }
 
-.x1{
+/*.x1{
   -webkit-animation: floatUp 4s infinite linear;
   -moz-animation: floatUp 4s infinite linear;
   -o-animation: floatUp 4s infinite linear;
@@ -196,20 +196,20 @@ button:hover{
   transform: scale(0.9);
   left: 85%;
 }
-
+*/
 button:focus{
   outline: none;
 }
 
-@-webkit-keyframes floatUp{
+/*@-webkit-keyframes floatUp{
   0%{top: 100vh; opacity: 0;}
   25%{opacity: 1;}
   50%{top: 0vh; opacity: .8;}
   75%{opacity: 1;}
   100%{top: -100vh; opacity: 0;}
-}
+}*/
 /*Анимация поднятия*/
-@-moz-keyframes floatUp {
+/*@-moz-keyframes floatUp {
     0%{top: 100vh; opacity: 0;}
   25%{opacity: 1;}
   50%{top: 0vh; opacity: .8;}
@@ -229,7 +229,7 @@ button:focus{
   50%{top: 0vh; opacity: .8;}
   75%{opacity: 1;}
   100%{top: -100vh; opacity: 0;}
-}
+}*/
 
 .header{
   position: absolute;
