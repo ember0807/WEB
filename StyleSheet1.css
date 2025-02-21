@@ -1,107 +1,176 @@
-﻿/* Общие стили */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Цвет фона для всего документа */
+﻿body {
+    font-family: Arial, sans-serif; /* Шрифт для всего документа */
+    background-color: #f0f0f0; /* Цвет фона страницы */
 }
 
-/* Стили для таблицы */
 .periodic-table {
-    display: grid;
-    grid-template-columns: repeat(18, 60px); /* 18 столбцов по 60px */
-    gap: 5px; /* Расстояние между ячейками */
+    display: grid; /* Используем сетку для расположения таблицы */
+    grid-template-columns: repeat(18, 60px); /* 18 колонок по 60px */
+    gap: 5px; /* Промежутки между элементами */
     max-width: 1200px; /* Максимальная ширина таблицы */
-    margin: 20px auto; /* Выравнивание по центру */
-    padding: 20px; /* Внутренние отступы у таблицы */
-    border: 1px solid #ccc; /* Граница вокруг таблицы */
-    border-radius: 10px; /* Скругление углов у таблицы */
-    background-color: white; /* Фон таблицы */
-}
-
-/* Стили для периодов */
-.period {
-    grid-column: span 18; /* Занимаем всю ширину */
-    padding: 10px 0; /* Внутренние отступы */
-    font-weight: bold; /* Жирный текст */
-    text-align: center; /* Центрование текста */
-    background-color: #e0e0e0; /* Фон для периодов */
-    border-radius: 5px; /* Скругление углов */
-}
-
-/* Стили для элементов */
-.element {
-    position: relative; /* Для позиционирования всплывающего окна */
+    margin: 20px auto; /* Центрируем таблицу с отступом сверху и снизу */
     padding: 20px; /* Внутренние отступы */
-    text-align: center; /* Центрование текста */
-    border: 1px solid #ccc; /* Рамка для элементов */
-    border-radius: 5px; /* Скругление углов */
-    transition: background-color 0.3s, opacity 0.3s; /* Плавный переход для фона и прозрачности */
+    border: 1px solid #ccc; /* Рамка таблицы */
+    background-color: white; /* Цвет фона таблицы */
+}
+.period {
+    grid-column: span 18; /* Занимаем всю ширину таблицы */
+    padding: 10px 0; /* Отступы сверху и снизу */
+    font-weight: bold; /* Жирный текст для заголовков периодов */
+    text-align: center; /* Центрирование текста */
+    background-color: #e0e0e0; /* Цвет фона заголовка периода */
 }
 
-    /* Специальный стиль для всплывающего окна при наведении */
-    .element:hover::after {
-        content: attr(data-tooltip);
-        position: absolute;
-        bottom: 100%; /* Всплывающее окно будет выше элемента */
-        left: 50%;
-        transform: translateX(-50%); /* Центрируем всплывающее окно */
-        background-color: white; /* Фон всплывающего окна */
-        border: 1px solid #ccc; /* Рамка */
-        border-radius: 5px; /* Скругление углов */
-        padding: 5px; /* Внутренние отступы */
-        white-space: nowrap; /* Запрет переноса текста */
-        z-index: 10; /* На переднем плане */
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень для всплывающего окна */
-    }
+/* Оформление элементов (атомов) */
+.element {
+    position: relative; /* Относительное позиционирование */
+    padding: 15px; /* Внутренние отступы для элементов */
+    text-align: center; /* Центрирование текста внутри элементов */
+    border: 1px solid #ccc; /* Рамка для элементов */
+    border-radius: 5px; /* Закругление углов элементов */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.2s; /* Плавные переходы */
+}
+.element::after {
+    content: attr(data-tooltip); /* Используем атрибут data-tooltip */
+    position: absolute;
+    left: 50%; /* Центрирование подсказки */
+    top: 100%; /* Ставим подсказку под элементом */
+    transform: translateX(-50%);
+    background-color: #333; /* Фон подсказки */
+    color: #fff; /* цвет текста */
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap; /* Запрет на перенос текста */
+    display: none; /* Скрываем подсказку по умолчанию */
+    z-index: 1000; /* Убедитесь, что подсказка будет на переднем плане */
+    font-size: 12px; /* Размер шрифта */
+}
 
-    /* Изменение прозрачности элемента при наведении */
-    .element:hover {
-        opacity: 0.8; /* Уменьшение прозрачности при наведении */
-    }
-
-/* Стили групп элементов */
+.element:hover::after {
+    display: block; /* Показываем подсказку при наведении */
+}
+/* Цвета для групп элементов */
 .group-1 {
-    background-color: #ffcccc; /* Цвет группы 1 */
+    background-color: lightblue; /* Цвет для группы 1 */
 }
 
 .group-2 {
-    background-color: #ccffcc; /* Цвет группы 2 (щелочные металлы) */
+    background-color: lightgreen; /* Цвет для группы 2 */
 }
 
 .group-3 {
-    background-color: #ccccff; /* Цвет группы 3 (щелочноземельные металлы) */
+    background-color: #ffcc99; /* Цвет для группы 3 */
+}
+
+.group-4 {
+    background-color: #ff9999; /* Цвет для группы 4 */
+}
+
+.group-5 {
+    background-color: #ffccff; /* Цвет для группы 5 */
+}
+
+.group-6 {
+    background-color: #ffb3b3; /* Цвет для группы 6 */
+}
+
+.group-7 {
+    background-color: #ffffcc; /* Цвет для группы 7 */
+}
+
+.group-8 {
+    background-color: #ccffcc; /* Цвет для группы 8 */
+}
+
+.group-9 {
+    background-color: #ccccff; /* Цвет для группы 9 */
+}
+
+.group-10 {
+    background-color: #c2c2f0; /* Цвет для группы 10 */
+}
+
+.group-11 {
+    background-color: #ffcc80; /* Цвет для группы 11 */
+}
+
+.group-12 {
+    background-color: #d9d9d9; /* Цвет для группы 12 */
 }
 
 .group-13 {
-    background-color: #ffe0b3; /* Цвет группы 13 (переходные металлы) */
+    background-color: #b3e8ff; /* Цвет для группы 13 */
 }
 
 .group-14 {
-    background-color: #e0b3ff; /* Цвет группы 14 */
+    background-color: #99ccff; /* Цвет для группы 14 */
 }
 
 .group-15 {
-    background-color: #ffd1b3; /* Цвет группы 15 */
+    background-color: #c2f0c2; /* Цвет для группы 15 */
 }
 
 .group-16 {
-    background-color: #ffffb3; /* Цвет группы 16 */
+    background-color: #ffb3ff; /* Цвет для группы 16 */
 }
 
 .group-17 {
-    background-color: #ffb3b3; /* Цвет группы 17 (галогены) */
+    background-color: #ffccff; /* Цвет для группы 17 */
 }
 
 .group-18 {
-    background-color: #b3e0ff; /* Цвет группы 18 (инертные газы) */
+    background-color: #d9d9d9; /* Цвет для группы 18 */
 }
 
-.lanthanides {
-    background-color: #b3ffcc; /* Цвет для лантаноидов */
+.group.group-19 {
+    background-color: #935da3; /* Цвет для группы актинидов */
 }
 
-.actinides {
-    background-color: #ffccff; /* Цвет для актиноидов */
+.group.group-20 {
+    background-color: #4a4282; /* Цвет для группы лантаноидов */
 }
-html:has(.group-1:hover) {
-    background-color: red;
+
+/* Оформление подсветки при наведении на группы элементов */
+
+.periodic-table:has(.group-1:hover) .group-1,
+.periodic-table:has(.group-2:hover) .group-2,
+.periodic-table:has(.group-3:hover) .group-3,
+.periodic-table:has(.group-4:hover) .group-4,
+.periodic-table:has(.group-5:hover) .group-5,
+.periodic-table:has(.group-6:hover) .group-6,
+.periodic-table:has(.group-7:hover) .group-7,
+.periodic-table:has(.group-8:hover) .group-8,
+.periodic-table:has(.group-9:hover) .group-9,
+.periodic-table:has(.group-10:hover) .group-10,
+.periodic-table:has(.group-11:hover) .group-11,
+.periodic-table:has(.group-12:hover) .group-12,
+.periodic-table:has(.group-13:hover) .group-13,
+.periodic-table:has(.group-14:hover) .group-14,
+.periodic-table:has(.group-15:hover) .group-15,
+.periodic-table:has(.group-16:hover) .group-16,
+.periodic-table:has(.group-17:hover) .group-17,
+.periodic-table:has(.group-18:hover) .group-18,
+.periodic-table:has(.group-19:hover) .group-19,
+.periodic-table:has(.group-20:hover) .group-20
+{
+    background-color: darkblue; /* Цвет фона группы при наведении */
+    color: white; /* Цвет текста группы при наведении */
+}
+
+.element:hover {
+    background-color: #0056b3; /* Цвет фона элемента при наведении */
+    color: white; /* Цвет текста элемента при наведении */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Тень вокруг элемента */
+    transform: scale(1.05);  /*Увеличение элемента при наведении */
+}
+
+/* Медиазапросы для адаптивного дизайна */
+@media (max-width: 600px) {
+    .periodic-table {
+        grid-template-columns: repeat(6, 1fr); /* Уменьшаем количество колонок на меньших экранах */
+    }
+
+    .element {
+        padding: 10px; /* Уменьшаем размер элементов на меньших экранах */
+    }
 }
