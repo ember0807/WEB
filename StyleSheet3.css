@@ -1,0 +1,190 @@
+﻿/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f8; /* Фон светлой темы */
+    color: #333; /* Цвет текста светлой темы */
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход для фона и цвета текста */
+}
+
+/* Заголовок страницы */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+
+/* Основной контейнер формы */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Стили секции с фотографией */
+.photo-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+/* Стили секции формы */
+.form-section {
+    flex: 2;
+}
+
+/* Стили для формы */
+form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Общие стили для всех div в форме */
+div {
+    margin-bottom: 15px;
+}
+
+/* Стили для меток */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Стили для текстовых полей */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="file"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+/* Стили для кнопок */
+input[type="submit"],
+input[type="reset"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+/* Стили для полей выборов */
+fieldset {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+legend {
+    padding: 0 10px;
+    color: #007bff;
+}
+
+/* Стили для чекбоксов и радиокнопок */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Стили для текстовых областей */
+textarea {
+    resize: vertical;
+}
+
+/* Медиа-запрос для адаптивного дизайна */
+@media (max-width: 600px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .photo-section {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Темная тема */
+body.dark-theme {
+    background-color: #222; /* Фон темной темы */
+    color: #f4f7f8; /* Цвет текста темной темы */
+}
+
+.dark-theme form {
+    background-color: #333; /* Фон формы в темной теме */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Более тёмная тень в темной теме */
+}
+
+.dark-theme input[type="text"],
+.dark-theme input[type="password"],
+.dark-theme input[type="email"],
+.dark-theme input[type="tel"],
+.dark-theme input[type="date"],
+.dark-theme input[type="time"],
+.dark-theme input[type="datetime-local"],
+.dark-theme input[type="file"],
+.dark-theme textarea,
+.dark-theme select {
+    border: 1px solid #555; /* Цвет рамки полей ввода в темной теме */
+    background-color: #444; /* Цвет фона для полей ввода в темной теме */
+    color: #fff; /* Цвет текста для полей ввода в темной теме */
+}
+
+.dark-theme input[type="submit"],
+.dark-theme input[type="reset"] {
+    background-color: #007bff; /* Цвет кнопок остается тем же */
+    color: #fff; /* Цвет текста на кнопках */
+}
+
+    .dark-theme input[type="submit"]:hover,
+    .dark-theme input[type="reset"]:hover {
+        background-color: #0056b3; /* Цвет кнопок при наведении в темной теме */
+    }

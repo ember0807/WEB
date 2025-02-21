@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Forms</title>
+    <link rel="stylesheet" href="StyleSheet3.css">
+    <style>
+        .form-container {
+            display: flex;
+            gap: 20px; /* Пробел между столбцами */
+        }
+
+        .theme-photo {
+            display: flex;
+            flex-direction: column; /* Вертикальное выравнивание для выбора темы и фото */
+            align-items: center; /* Центрируем содержимое по горизонтали */
+        }
+
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .language-column {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Стиль темной и светлой темы */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        body.dark-theme {
+            background-color: #333333;
+            color: #fff;
+        }
+
+        .theme-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px; /* Пробел между выбором темы и фотографией */
+            gap: 15px; /* Пробел между чекбоксами */
+        }
+
+            .theme-selector label {
+                cursor: pointer; /* Курсор при наведении */
+                font-size: 14px; /* Уменьшить размер шрифта */
+            }
+
+            .theme-selector input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                vertical-align: middle; /* Вертикальное выравнивание с текстом */
+                margin-right: 5px; /* Отступ между чекбоксом и текстом */
+            }
+
+        .theme-line {
+            height: 2px; /* Толщина линии */
+            background-color: #ccc; /* Цвет линии */
+            margin-bottom: 10px; /* Пробел под линией */
+        }
+
+        fieldset {
+            display: flex; /* Flexbox для размещения радиокнопок в строку */
+            justify-content: center; /* Центрирование содержимого */
+        }
+    </style>
+    <script>
+        function changeTheme(theme) {
+            const lightCheckbox = document.getElementById('light-theme');
+            const darkCheckbox = document.getElementById('dark-theme');
+
+            if (lightCheckbox.checked) {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
+            } else if (darkCheckbox.checked) {
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
+            }
+        }
+    </script>
+</head>
+<body class="light-theme">
+    <!-- По умолчанию светлая тема -->
+    <h1>Forms</h1>
+    <form action="handler.php" method="post">
+        <div class="form-container">
+            <div class="theme-photo">
+                <div class="theme-selector">
+                    <label>
+                        <input type="radio" name="theme" id="light-theme" checked onclick="changeTheme('light');">
+                        Светлая
+                    </label>
+                    <label>
+                        <input type="radio" name="theme" id="dark-theme" onclick="changeTheme('dark');">
+                        Темная
+                    </label>
+                </div>
+                <div class="photo-section">
+                    <img src="https://cdnn21.img.ria.ru/images/139676/19/1396761945_0:0:3303:2840_1440x900_80_0_1_df42498fd5af63624d6233a6cba547a6.jpg.webp?source-sid=Fotolia" alt="Profile Photo" width="350" height="400"><br>
+                    <label for="photo">Выберите фоточку</label>
+                    <input type="file" name="photo" accept="image/*">
+                </div>
+            </div>
+            <div class="form-section">
+                <div>
+                    <label for="first_name">Name:</label>
+                    <input type="text" placeholder="Введите Ваше имя" name="first_name" id="first_name" required size="25" minlength="3" maxlength="8" pattern="^[A-Z][a-z]*">
+                </div>
+                <div>
+                    <label for="passwd">Password:</label>
+                    <input type="password" placeholder="Введите пароль" name="passwd" id="passwd" required size="25" minlength="8" maxlength="24">
+                </div>
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input type="email" placeholder="Введите Вашу почту" name="email" id="email" required size="25" minlength="5" maxlength="24">
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" placeholder="Введите Ваш телефон" name="phone" id="phone" required size="25" minlength="5" maxlength="24">
+                </div>
+                <div>
+                    <label for="birth-date">Ваша дата рождения:</label>
+                    <input type="date" name="birth-date" id="birth-date" required>
+                </div>
+                <div>
+                    <label for="brief">Пару слов о себе:</label><br>
+                    <textarea name="brief" id="brief" placeholder=""></textarea>
+                </div>
+                <div>
+                    <label for="color">Выберите Ваш любимый цвет</label>
+                    <input type="color" name="color">
+                </div>
+
+                <fieldset>
+                    <legend>Какие языки Вы знаете?</legend>
+                    <div class="languages">
+                        <div class="language-column">
+                            <div><input type="checkbox" name="language[]" id="Russian" value="Russian"><label for="Russian">Русский</label></div>
+                            <div><input type="checkbox" name="language[]" id="English" value="English"><label for="English">English</label></div>
+                            <div><input type="checkbox" name="language[]" id="Deutsche" value="Deutsche"><label for="Deutsche">Deutsche</label></div>
+                            <div><input type="checkbox" name="language[]" id="Italiano" value="Italiano"><label for="Italiano">Italiano</label></div>
+                            <div><input type="checkbox" name="language[]" id="Espanol" value="Espanol"><label for="Espanol">Espanol</label></div>
+                        </div>
+                        <div class="language-column">
+                            <div><input type="checkbox" name="language[]" id="Chinese" value="Chinese"><label for="Chinese">Chinese</label></div>
+                            <div><input type="checkbox" name="language[]" id="Japanese" value="Japanese"><label for="Japanese">Japanese</label></div>
+                            <div><input type="checkbox" name="language[]" id="French" value="French"><label for="French">French</label></div>
+                            <div><input type="checkbox" name="language[]" id="Spanish2" value="Spanish"><label for="Spanish2">Spanish</label></div>
+                            <div><input type="checkbox" name="language[]" id="Italian" value="Italian"><label for="Italian">Italian</label></div>
+                        </div>
+                        <div class="language-column">
+                            <div><input type="checkbox" name="language[]" id="Korean" value="Korean"><label for="Korean">Korean</label></div>
+                            <div><input type="checkbox" name="language[]" id="Arabic" value="Arabic"><label for="Arabic">Arabic</label></div>
+                            <div><input type="checkbox" name="language[]" id="Hindi" value="Hindi"><label for="Hindi">Hindi</label></div>
+                            <div><input type="checkbox" name="language[]" id="Russian2" value="Russian"><label for="Russian2">Русский (другой вариант)</label></div>
+                            <div><input type="checkbox" name="language[]" id="Portuguese" value="Portuguese"><label for="Portuguese">Portuguese</label></div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Выберите форму обучения</legend>
+                    <input type="radio" name="learning-form" id="stacionar" value="Стационар" required><label for="stacionar">Стационар</label><br>
+                    <input type="radio" name="learning-form" id="semistacionar" value="Получтационар" required><label for="semistacionar">Получтационар</label><br>
+                    <input type="radio" name="learning-form" id="year-courses" value="Годичные курсы" required><label for="year-courses">Годичные курсы</label><br>
+                </fieldset>
+
+                <div>
+                    <label for="direction">Выберите направление обучения:</label><br>
+                    <select name="direction" id="direction" required>
+                        <option disabled selected> --- Выберите специальность --- </option>
+                        <option value="RPO">РПО</option>
+                        <option value="Networks">Сети</option>
+                        <option value="Graphics">Графика</option>
+                        <option value="Java">Java</option>
+                        <option value="Android">Android</option>
+                        <option value="GameDev">GameDev</option>
+                        <option value="WebDev">WebDev</option>
+                        <option value="FrontEnd">FrontEnd</option>
+                        <option value="BackEnd">BackEnd</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="weekdays">Выберите дни недели:</label><br>
+                    <select multiple name="weekdays[]" id="weekdays">
+                        <option disabled selected>Выберите дни недели</option>
+                        <option value="Monday">Понедельник</option>
+                        <option value="Tuesday">Вторник</option>
+                        <option value="Wednesday">Среда</option>
+                        <option value="Thursday">Четверг</option>
+                        <option value="Friday">Пятница</option>
+                        <option value="Saturnday">Суббота</option>
+                        <option value="Sunday">Воскресенье</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="learning-time">Выберите время обучения</label>
+                    <input type="time" name="learning-time" id="learning-time" required>
+                </div>
+
+                <div>
+                    <label for="meeting">Выберите удобное для Вас время встречи:</label><br>
+                    <input type="datetime-local" name="meeting" id="meeting" required>
+                </div>
+
+                <div>
+                    <label for="week">Выберите неделю:</label>
+                    <input type="week" name="week" id="week">
+                </div>
+
+                <div>
+                    <label for="number">Выберите число:</label>
+                    <input type="number" name="number" min="1" max="5">
+                </div>
+
+                <div>
+                    <label for="range">Выберите диапазон:</label>
+                    <input type="range" name="range" id="range">
+                </div>
+
+                <input type="reset" value="Сбросить">
+                <input type="submit" value="Отправить">
+            </div>
+        </div>
+    </form>
+</body>
+</html>

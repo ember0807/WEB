@@ -102,3 +102,6 @@ body {
 .actinides {
     background-color: #ffccff; /* Цвет для актиноидов */
 }
+html:has(.group-1:hover) {
+    background-color: red;
+}
