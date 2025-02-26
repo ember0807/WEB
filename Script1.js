@@ -20,6 +20,6 @@ function calculate()
     }
     catch (error)
     {
-        display.value = 'Ошибка';
+        display.value = 'Error';
     }
 }
