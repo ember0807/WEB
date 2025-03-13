@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выполнение заданий</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Выполнение заданий на JavaScript</h1>
+
+    <h2>Задание 1: Вычисление факториала</h2>
+    <button onclick="calculateFactorial()">Начать выполнение</button>
+    <div class="result" id="resultFactorial"></div>
+
+    <h2>Задание 2: Возведение в степень</h2>
+    <button onclick="calculatePower()">Начать выполнение</button>
+    <div class="result" id="resultPower"></div>
+
+    <h2>Задание 3: Генерация уникальных случайных чисел</h2>
+    <button onclick="generateUniqueRandomNumbers()">Начать выполнение</button>
+    <div class="result" id="resultRandomNumbers"></div>
+
+    <h2>Задание 4: Повторяющиеся значения в массиве</h2>
+    <button onclick="findDuplicateValues()">Начать выполнение</button>
+    <div class="result" id="resultDuplicates"></div>
+
+    <h2>Задание 5: Преобразование числа из десятичного в двоичное и шестнадцатеричное</h2>
+    <button onclick="convertNumber()">Начать выполнение</button>
+    <div class="result" id="resultConvert"></div>
+
+    <h2>Задание 6: Ряд Фибоначчи</h2>
+    <button onclick="generateFibonacci()">Начать выполнение</button>
+    <div class="result" id="resultFibonacci"></div>
+
+    <h2>Задание 7: Операции с массивом</h2>
+    <button onclick="arrayOperations()">Начать выполнение</button>
+    <div class="result" id="resultArrayOperations"></div>
+
+    <script>
+        // Задание 1: Факториал
+        function calculateFactorial()
+        {
+            const userInput = prompt("Введите число для вычисления факториала:");
+            // Преобразуем введенное значение в целое число
+            const number = parseInt(userInput);
+            // Находим элемент на странице, куда будем выводить результат
+            const resultDiv = document.getElementById('resultFactorial');
+            // Проверяем, является ли введенное число корректным
+            if (isNaN(number) || number < 0)
+            {
+                resultDiv.innerHTML = 'Пожалуйста, введите корректное неотрицательное целое число.';
+            }
+            else
+            {
+                // Если значение корректное, вычисляем факториал числа
+                const result = factorial(number);
+                resultDiv.innerHTML = `Факториал ${number} равен: ${result}`;
+            }
+        }
+        //function factorial(n)
+        //{
+        //    let result = 1;
+        //    for (let i = 1; i <= n; i++)
+        //    {
+        //        result *= i;
+        //    }
+        //    return result;
+        //}
+        //рекурсия
+        function factorial(n)
+        {
+            return n === 0 ? 1 : n * factorial(n - 1);
+        }
+
+        // Задание 2: Возведение в степень
+        function calculatePower()
+        {
+            const base = parseFloat(prompt("Введите основание:"));
+            const exponent = parseInt(prompt("Введите показатель степени:"));
+            const resultDiv = document.getElementById('resultPower');
+            /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/pow */
+            const result = Math.pow(base, exponent);
+            resultDiv.innerHTML = `Результат: ${result}`;
+        }
+
+        // Задание 3: Генерация уникальных случайных чисел
+        // Функция для генерации уникальных случайных чисел и отображения их на странице
+        function generateUniqueRandomNumbers()
+        {
+            // Получаем элемент с ID 'resultRandomNumbers' для отображения результата
+            const resultDiv = document.getElementById('resultRandomNumbers');
+
+            // Определяем размер массива уникальных случайных чисел
+            const arraySize = 10;
+
+            // Вызываем вспомогательную функцию для генерации уникальных случайных чисел
+            const uniqueRandomArray = generateUniqueRandomArray(arraySize, 20, 30);
+
+            // Обновляем HTML содержимое элемента resultDiv, показывая уникальные случайные числа
+            // join(", ") объединяет элементы массива в строку, разделяя их запятыми
+            resultDiv.innerHTML = `Уникальные случайные числа: ${uniqueRandomArray.join(", ")}`;
+        }
+
+        // Вспомогательная функция для генерации массива уникальных случайных чисел заданного размера
+        function generateUniqueRandomArray(size, min, max)
+        {
+            // Используем Set для хранения уникальных чисел (поскольку Set не допускает дубликатов)
+            const numSet = new Set();
+
+            // Генерируем случайные числа, пока размер Set меньше заданного размера
+            while (numSet.size < size)
+            {
+                // Генерируем случайное число в диапазоне от min до max (включительно)
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+
+                // Добавляем сгенерированное число в Set (если оно уникально)
+                numSet.add(num);
+            }
+
+            // Преобразуем Set в массив и возвращаем его
+            return Array.from(numSet);
+        }
+
+        // Задание 4: Повторяющиеся значения в массиве
+        // Функция для поиска повторяющихся значений в сгенерированном массиве
+        function findDuplicateValues()
+        {
+            const resultDiv = document.getElementById('resultDuplicates');
+            const minRange = parseInt(prompt("Введите минимальное значение диапазона:"));
+            const maxRange = parseInt(prompt("Введите максимальное значение диапазона:"));
+            const size = parseInt(prompt("Введите количество элементов в массиве (например, 10):"));
+
+            if (isNaN(minRange) || isNaN(maxRange) || isNaN(size) || size <= 0 || minRange >= maxRange)
+            {
+                resultDiv.innerHTML = 'Пожалуйста, введите корректные значения.';
+                return;
+            }
+
+            const randomArray = generateRandomArray(size, minRange, maxRange);
+            const duplicates = findDuplicates(randomArray);
+
+            resultDiv.innerHTML = `
+                    Сгенерированный массив: ${randomArray.join(", ")} <br>
+                    Повторяющиеся значения: ${duplicates.length > 0 ? duplicates.join(", ") : "Нет повторений"}
+                `;
+        }
+        //функция для генерации массива случайных чисел
+        function generateRandomArray(size, min, max)
+        {
+            const array = []; // Инициализируем пустой массив
+            for (let i = 0; i < size; i++)
+            {
+                // Генерируем случайное число в заданном диапазоне
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                array.push(num); // Добавляем случайное число в массив
+            }
+            return array; // Возвращаем сгенерированный массив
+        }
+
+        // Функция для поиска дубликатов в массиве
+        function findDuplicates(arr)
+        {
+            const count = {}; // Объект для хранения количества повторений каждого числа
+            arr.forEach(num =>
+            {
+                // Для каждого числа в массиве увеличиваем его счетчик в объекте count
+                count[num] = (count[num] || 0) + 1;
+            });
+
+            // Фильтруем объект, чтобы найти только числа, которые встречаются более одного раза
+            ///https://learnjs.ru/lessons/object-entries-keys-values/
+            return Object.entries(count) // Преобразуем объект в массив пар [ключ, значение]
+                .filter(([_, value]) => value > 1) // Оставляем только те пары, где значение (количество) больше 1
+                .map(([key]) => key); // Извлекаем ключи (числа), которые повторяются
+        }
+
+        // Задание 5: Преобразование числа
+        function convertNumber()
+        {
+            const userInput = prompt("Введите десятичное число:");
+            const decimalNumber = parseInt(userInput);
+            const resultDiv = document.getElementById('resultConvert');
+
+            if (isNaN(decimalNumber))
+            {
+                resultDiv.innerHTML = 'Пожалуйста, введите корректное десятичное число.';
+                return;
+            }
+            //https://doka.guide/js/number-tostring/
+            const binary = decimalNumber.toString(2);
+            const hexadecimal = decimalNumber.toString(16).toUpperCase();
+            resultDiv.innerHTML = `Двоичный: ${binary}, Шестнадцатеричный: ${hexadecimal}`;
+        }
+
+        // Задание 6: Ряд Фибоначчи
+        function generateFibonacci()
+        {
+            const fibLimit = parseInt(prompt("Введите предел для ряда Фибоначчи:"));
+            const resultDiv = document.getElementById('resultFibonacci');
+
+            if (isNaN(fibLimit) || fibLimit < 0)
+            {
+                resultDiv.innerHTML = 'Пожалуйста, введите корректное неотрицательное целое число.';
+                return;
+            }
+
+            const series = fibonacciSeries(fibLimit);
+            resultDiv.innerHTML = `Ряд Фибоначчи до ${fibLimit}: ${series.join(", ")}`;
+        }
+
+        function fibonacciSeries(limit)
+        {
+            //В бесконечном цикле вычисляется следующее число как сумма двух последних чисел в массиве.
+            //Если следующее число превышает заданный предел(limit), цикл прекращается с помощью break. 
+            //Если число не превышает предел, оно добавляется в массив series.
+            const series = [0, 1];
+            while (true)
+            {
+                const next = series[series.length - 1] + series[series.length - 2];
+                if (next > limit) break;
+                series.push(next);
+            }
+            return series;
+        }
+
+        // Задание 7: Операции с массивом
+        function arrayOperations()
+        {
+            const resultDiv = document.getElementById('resultArrayOperations');
+            const userInput = prompt("Введите 5 чисел, разделённых запятыми (например: 1,2,3,4,5):");
+            const numbers = userInput.split(',').map(Number);
+
+            if (numbers.length !== 5 || numbers.some(isNaN))
+            {
+                resultDiv.innerHTML = 'Пожалуйста, введите ровно 5 чисел.';
+                return;
+            }
+
+            const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+            const average = sum / numbers.length;
+            //Используя методы Math.min и Math.max, можно получить минимальное и максимальное значения в массиве.
+            //Здесь используется оператор распаковки(...), чтобы передать массив элементов как отдельные аргументы.
+            //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+            const min = Math.min(...numbers);
+            const max = Math.max(...numbers);
+            //создание копии и сортировка массива
+            const sorted = [...numbers].sort((a, b) => a - b);
+
+            resultDiv.innerHTML = `
+                    Сумма: ${sum} <br>
+                    Среднее арифметическое: ${average.toFixed(2)} <br>
+                    Минимальное значение: ${min} <br>
+                    Максимальное значение: ${max} <br>
+                    Отсортированный массив: ${sorted.join(", ")}
+                `;
+        }
+
+    </script>
+
+</body>
+</html>
