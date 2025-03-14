@@ -1,0 +1,213 @@
+﻿body {
+}
+
+#desktop {
+    height: 600px;
+    background-image: url("img/bliss.jpg");
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center; /*выравнивание по горизонтали*/
+    align-items: center; /*выравнивание по вертикали*/
+}
+
+.main-window {
+    width: 520px;
+    height: 420px;
+    font-family: Tahoma;
+}
+
+.title-bar {
+    background-image: linear-gradient(#23CCFF, #0259e6,#0259e6, #0367fa, #0367fa, #2379ed);
+    height: 48px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: inset 0px 0px 4px 1px #002195;
+    color: white;
+    text-shadow: 1px 1px darkblue;
+    /*----------------------*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+}
+
+.window-control-buttons, .window-title {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+.window-control-button {
+    width: 32px;
+    height: 32px;
+    margin: 1px;
+    color: white;
+    font-weight: 500;
+    background-image: linear-gradient(to bottom right, #55a1f5, #2760A2);
+    box-shadow: inset 1px 1px 3px 1px #77a1f5;
+    border: solid 1px white;
+    border-radius: 2px;
+}
+
+    .window-control-button:hover, button:disabled, button:disabled:hover {
+        border-color: lightgrey;
+        box-shadow: none;
+    }
+
+    .window-control-button:active {
+        border-color: gray;
+    }
+
+    .window-control-button:nth-child(2) {
+        position: relative;
+        background-image: linear-gradient(to bottom right, #55a1f5, #2760A2);
+        box-shadow: inset 1px 1px 3px 1px #77a1f5;
+        border: solid 1px white;
+        border-radius: 2px;
+    }
+
+        .window-control-button:nth-child(2)::after {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            border: 2px solid white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+.close-button {
+    background-image: linear-gradient(to bottom right, #c97475, #c76042);
+    box-shadow: inset 1px 1px 3px 1px #c49a9b;
+}
+
+.client-rect {
+    background-color: #ebe9d8;
+    height: 100%;
+    border: solid 5px;
+    border-top: 0;
+    border-image: linear-gradient(to right, #0069fc, #55BbfF, #0069fc) 1 round;
+    /*-----------------------------*/
+    display: flex;
+    flex-direction: column;
+}
+
+    .client-rect > input[type=text] {
+        margin: 10px;
+        text-align: right;
+        font-size: 18px;
+    }
+
+.menu-bar {
+    box-shadow: 0px 1px 0px 0px white;
+    padding: 2px;
+}
+
+    .menu-bar > input[type=button] {
+        border: none;
+        background-color: transparent;
+    }
+
+        .menu-bar > input[type=button]:hover {
+            box-shadow: 0px 0px 0px 1px grey;
+        }
+
+.display-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+    .display-buttons > button {
+        width: 128px;
+        color: red;
+        margin: 8px 5px;
+    }
+
+#square {
+    width: 40px;
+    height: 40px;
+    border: inset 2px;
+    margin: 10px 10px;
+}
+
+#memory-buttons {
+    width: 64px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px;
+}
+
+    #memory-buttons > button {
+        width: 54px;
+        height: 44px;
+        margin: 5px 5px;
+        color: red;
+    }
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    border: solid 1px;
+}
+
+#digits {
+    display: grid;
+    grid-template-rows: repeat(4, 44px);
+    grid-template-columns: repeat(3, 54px);
+    grid-gap: 10px;
+    margin: 10px 5px;
+    padding: 5px;
+    border: solid 1px;
+}
+
+    #digits > button {
+        width: 54px;
+        height: 44px;
+        color: blue;
+    }
+
+#operations {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 10px 5px;
+    width: 100%;
+    border: solid 1px black;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+    #operations > button {
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+        color: red;
+    }
+
+
+button {
+    border: solid 1px darkblue;
+    border-radius: 5px;
+    box-shadow: inset 0px -3px 5px 1px lightgrey;
+}
+
+    button:hover {
+        background-color: lightgray;
+    }
+
+    button:active {
+        box-shadow: inset 0px 0px 0px 1px grey;
+    }
+
+.debug {
+    border: solid 1px black;
+}

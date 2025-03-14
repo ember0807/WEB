@@ -1,0 +1,73 @@
+﻿﻿
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="calc.css">
+    <title>Калькулятор</title>
+</head>
+<body>
+    <div id="desktop">
+        <div class="main-window">
+            <div class="title-bar">
+                <div class="window-title">
+                    <img src="img/calc.ico" class="icon">
+                    Калькулятор
+                </div>
+                <div class="window-control-buttons">
+                    <button class="window-control-button"><b>_</b></button>
+                    <button class="window-control-button" disabled></button>
+                    <button class="window-control-button close-button">X</button>
+                </div>
+            </div>
+            <div class="client-rect">
+                <div class="menu-bar">
+                    <input type="button" value="Правка">
+                    <input type="button" value="Вид">
+                    <input type="button" value="Справка">
+                </div>
+                <input type="text" value="0.">
+                <div class="display-buttons">
+                    <div id="square"></div>
+                    <button>Backspace</button>
+                    <button>CE</button>
+                    <button>C</button>
+                </div>
+                <div class="buttons">
+                    <div id="memory-buttons">
+                        <button>MC</button>
+                        <button>MR</button>
+                        <button>MS</button>
+                        <button>M+</button>
+                    </div>
+                    <div id="digits">
+                        <button>7</button>
+                        <button>8</button>
+                        <button>9</button>
+                        <button>4</button>
+                        <button>5</button>
+                        <button>6</button>
+                        <button>1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>0</button>
+                        <button>+/-</button>
+                        <button>.</button>
+                    </div>
+                    <div id="operations">
+                        <button>/</button>
+                        <button>*</button>
+                        <button>-</button>
+                        <button>+</button>
+                        <button>=</button>
+                        <button>sqrt</button>
+                        <button>%</button>
+                        <button>1/x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="calc.js"></script>
+</body>
+</html>
