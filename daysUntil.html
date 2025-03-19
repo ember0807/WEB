@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<link rel="stylesheet" href="daysUntil.css">
+<body>
+    <h1>Таймер обратного отсчета</h1>
+    <label for="targetDate">Выберите дату:</label>
+    <input type="datetime-local" id="targetDate" />
+    <div id="countdown"></div>
+    <div id="error" class="hidden"></div>
+    
+
+    <script>
+        function updateCountdown()
+        {
+            const targetDateInput = document.getElementById("targetDate").value;
+            const countdownDiv = document.getElementById("countdown");
+            const errorDiv = document.getElementById("error");
+
+            if (!targetDateInput)
+            {
+                countdownDiv.innerText = '';
+                errorDiv.innerText = 'Пожалуйста, выберите дату.';
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            const targetDate = new Date(targetDateInput);
+            const now = new Date(); // Текущая дата и время
+
+            if (targetDate <= now)
+            {
+                countdownDiv.innerText = '';
+                errorDiv.innerText = 'Дата уже прошла.';
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            const timeDifference = targetDate - now;
+
+            // Рассчитываем оставшиеся единицы времени
+            const totalSeconds = Math.floor(timeDifference / 1000);
+            const seconds = totalSeconds % 60;
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const minutes = totalMinutes % 60;
+            const totalHours = Math.floor(totalMinutes / 60);
+            const hours = totalHours % 24;
+            const totalDays = Math.floor(totalHours / 24);
+
+            const years = targetDate.getFullYear() - now.getFullYear();
+            const months = targetDate.getMonth() - now.getMonth();
+
+            // Корректируем год и месяц
+            let adjustedYears = years;
+            let adjustedMonths = months;
+
+            if (adjustedMonths < 0)
+            {
+                adjustedYears--;
+                adjustedMonths += 12;
+            }
+
+            // Пересчитываем дни с учетом месяцев
+            const endOfMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0).getDate();
+            const daysInCurrentMonth = endOfMonth - now.getDate() + 1; // оставшиеся дни в текущем месяце
+            const finalDays = adjustedMonths === 0 ? totalDays : daysInCurrentMonth;
+
+            countdownDiv.innerText =
+                `Осталось: ${adjustedYears} год(а), ${adjustedMonths} месяч(ев), ${finalDays} дн(я), ${hours} ч, ${minutes} мин, ${seconds} сек`;
+        }
+
+        document.getElementById("targetDate").addEventListener("change", function ()
+        {
+            setInterval(updateCountdown, 1000); // Обновляем каждую секунду
+            updateCountdown(); // Обновляем сразу после выбора даты
+        });
+    </script>
+</body>
+</html>
