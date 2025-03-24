@@ -65,6 +65,20 @@ input[type="datetime-local"]:focus
     display: none;
 }
 
+.time-circle {
+    display: inline-block; /* Позволяет блокам располагаться в строке */
+    border: 2px solid #61dafb; /* Цвет границы кружка */
+    border-radius: 50%; /* Закругление для создания круга */
+    width: 60px; /* Ширина кружка */
+    height: 60px; /* Высота кружка */
+    margin: 10px; /* Отступ между кружками */
+    display: flex;
+    align-items: center; /* Центровка содержимого по вертикали */
+    justify-content: center; /* Центровка содержимого по горизонтали */
+    background-color: #444851; /* Цвет фона кружка */
+    color: #ffffff; /* Цвет текста */
+    font-size: 1.2em; /* Размер шрифта */
+}
 /* Стили для блока ошибок */
 #error 
 {
