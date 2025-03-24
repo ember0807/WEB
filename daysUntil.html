@@ -1,33 +1,110 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
-<link rel="stylesheet" href="daysUntil.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймер обратного отсчета</title>
+    <style>
+        /* Основные стили для всего документа */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Стили заголовка */
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для меток */
+        label {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Стили для поля ввода даты */
+        input[type="datetime-local"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #61dafb;
+            border-radius: 5px;
+            background-color: #3a3f47;
+            color: #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+            /* Стили для фокуса на поле ввода */
+            input[type="datetime-local"]:focus {
+                border-color: #61dafb;
+                outline: none;
+            }
+
+        /* Стили для блока с обратным отсчетом */
+        #countdown {
+            margin-top: 20px;
+            font-size: 1.5em;
+            display: flex; /* Используем flexbox для размещения кружочков в строку */
+            justify-content: center; /* Центруем кружочки */
+        }
+
+        /* Стили для кружочков времени */
+        .time-circle {
+            display: inline-flex; /* Позволяет блокам располагаться в строке */
+            border: 2px solid #61dafb; /* Цвет границы кружка */
+            border-radius: 50%; /* Закругление для создания круга */
+            width: 100px; /* Ширина кружка */
+            height: 100px; /* Высота кружка */
+            margin: 10px; /* Отступ между кружками */
+            align-items: center; /* Центровка содержимого по вертикали */
+            justify-content: center; /* Центровка содержимого по горизонтали */
+            background-color: #444851; /* Цвет фона кружка */
+            color: #ffffff; /* Цвет текста */
+            font-size: 1.2em; /* Размер шрифта */
+        }
+
+        /* Стили для скрытого элемента с ошибками */
+        .hidden {
+            display: none;
+        }
+
+        /* Стили для блока ошибок */
+        #error {
+            color: #ff4d4d; /* Красный цвет для текста ошибок */
+            margin-top: 10px;
+            font-size: 1em;
+        }
+    </style>
+</head>
 <body>
     <h1>Таймер обратного отсчета</h1>
+
     <label for="targetDate">Выберите дату:</label>
-    <input type="datetime-local" id="targetDate" />
+    <input type="datetime-local" id="targetDate">
+
     <div id="countdown"></div>
     <div id="error" class="hidden"></div>
 
     <script>
-        // Функция для форматирования выводимого времени
-        function formatTime(unit, value)
-        {
-            if (value > 0)
-            {
-                return `${value} ${unit}`;
-            }
-            return '';
+        function formatTime(unit, value) {
+            return value > 0 ? `${value} ${unit}` : null;
         }
 
-        function updateCountdown()
-        {
+        function updateCountdown() {
             const targetDateInput = document.getElementById("targetDate").value;
             const countdownDiv = document.getElementById("countdown");
             const errorDiv = document.getElementById("error");
 
-            if (!targetDateInput)
-            {
-                countdownDiv.innerText = '';
+            if (!targetDateInput) {
+                countdownDiv.innerHTML = '';
                 errorDiv.innerText = 'Пожалуйста, выберите дату.';
                 errorDiv.classList.remove("hidden");
                 return;
@@ -38,8 +115,6 @@
 
             // Вычисляем разницу времени
             const timeDifference = targetDate - now;
-
-            // Определяем, если дата прошла
             const isPast = timeDifference < 0;
             const totalSeconds = Math.floor(Math.abs(timeDifference) / 1000);
             const seconds = totalSeconds % 60;
@@ -49,32 +124,34 @@
             const hours = totalHours % 24;
             const totalDays = Math.floor(totalHours / 24);
 
-            // Здесь мы вычисляем количество лет и месяцев
             const years = Math.floor(totalDays / 365);
             const months = Math.floor((totalDays % 365) / 30);
             const days = totalDays % 30;
 
-            let output = isPast ? 'Прошло: ' : 'Осталось: ';
+            countdownDiv.innerHTML = ''; // Очищаем предыдущие значения
 
-            // Формируем вывод
-            output += [
-                formatTime('г', years),
-                formatTime('мес', months),
-                formatTime('дн', days),
-                formatTime('ч', hours),
-                formatTime('мин', minutes),
-                formatTime('сек', seconds)
-            ].filter(Boolean).join(', ');
+            // Выводим "Осталось" или "Прошло"
+            countdownDiv.innerHTML += `<h2>${isPast ? 'Прошло:' : 'Осталось:'}</h2>`;
 
-            countdownDiv.innerText = output || '0 секунд'; // Если результат пуст, выводим "0 секунд"
-            errorDiv.classList.add("hidden"); // Скрываем сообщение об ошибке
+            // Генерация HTML-кода для каждого временного блока
+            [formatTime('г', years), formatTime('мес', months), formatTime('дн', days), formatTime('ч', hours), formatTime('мин', minutes), formatTime('сек', seconds)]
+                .forEach(time => {
+                    if (time) {
+                        const [value, unit] = time.split(' ');
+                        countdownDiv.innerHTML += `
+                                        <div class="time-circle">
+                                            <span>${value}</span>
+                                            <span>${unit}</span>
+                                        </div>
+                                    `;
+                    }
+                });
+
+            errorDiv.classList.add("hidden");
         }
 
-        // Добавляем обработчик события на выбор даты
-        document.getElementById("targetDate").addEventListener("change", function () {
-            setInterval(updateCountdown, 1000); // Устанавливаем интервал обновления каждую секунду
-            updateCountdown(); // Сразу обновляем таймер после выбора даты
-        });
+        // Обновляем таймер каждую секунду
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
