@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таймер обратного отсчета</title>
     <style>
-        /* Основные стили для всего документа */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #282c34;
@@ -19,19 +18,16 @@
             text-align: center;
         }
 
-        /* Стили заголовка */
         h1 {
             font-size: 2.5em;
             margin-bottom: 20px;
         }
 
-        /* Стили для меток */
         label {
             margin-bottom: 10px;
             font-size: 1.2em;
         }
 
-        /* Стили для поля ввода даты */
         input[type="datetime-local"] {
             padding: 10px;
             font-size: 1em;
@@ -42,45 +38,49 @@
             transition: border-color 0.3s ease;
         }
 
-            /* Стили для фокуса на поле ввода */
             input[type="datetime-local"]:focus {
                 border-color: #61dafb;
                 outline: none;
             }
 
-        /* Стили для блока с обратным отсчетом */
         #countdown {
             margin-top: 20px;
             font-size: 1.5em;
-            display: flex; /* Используем flexbox для размещения кружочков в строку */
-            justify-content: center; /* Центруем кружочки */
+            display: flex;
+            justify-content: center;
         }
 
-        /* Стили для кружочков времени */
         .time-circle {
-            display: inline-flex; /* Позволяет блокам располагаться в строке */
-            border: 2px solid #61dafb; /* Цвет границы кружка */
-            border-radius: 50%; /* Закругление для создания круга */
-            width: 100px; /* Ширина кружка */
-            height: 100px; /* Высота кружка */
-            margin: 10px; /* Отступ между кружками */
-            align-items: center; /* Центровка содержимого по вертикали */
-            justify-content: center; /* Центровка содержимого по горизонтали */
-            background-color: #444851; /* Цвет фона кружка */
-            color: #ffffff; /* Цвет текста */
-            font-size: 1.2em; /* Размер шрифта */
+            display: inline-flex;
+            border: 2px solid #61dafb;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
+            background-color: #444851;
+            color: #ffffff;
+            font-size: 1.2em;
         }
 
-        /* Стили для скрытого элемента с ошибками */
         .hidden {
             display: none;
         }
 
-        /* Стили для блока ошибок */
         #error {
-            color: #ff4d4d; /* Красный цвет для текста ошибок */
+            color: #ff4d4d;
             margin-top: 10px;
             font-size: 1em;
+        }
+
+        .play-pause-btn {
+            background: none;
+            border: none;
+            color: #61dafb;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin: 10px;
         }
     </style>
 </head>
@@ -90,16 +90,25 @@
     <label for="targetDate">Выберите дату:</label>
     <input type="datetime-local" id="targetDate">
 
+    <label for="setAlarm">Установить будильник:</label>
+    <input type="checkbox" id="setAlarm">
+
+    <audio id="alarmSound" src="Take What You Want.mp3"></audio>
+
+    <button class="play-pause-btn" id="toggleSound" onclick="toggleSound()">▶️</button>
     <div id="countdown"></div>
     <div id="error" class="hidden"></div>
 
     <script>
+        let audioPlayed = false; // Флаг для отслеживания, воспроизводился ли звук
+
         function formatTime(unit, value) {
             return value > 0 ? `${value} ${unit}` : null;
         }
 
         function updateCountdown() {
             const targetDateInput = document.getElementById("targetDate").value;
+            const setAlarmCheckbox = document.getElementById("setAlarm").checked;
             const countdownDiv = document.getElementById("countdown");
             const errorDiv = document.getElementById("error");
 
@@ -112,10 +121,8 @@
 
             const targetDate = new Date(targetDateInput);
             const now = new Date();
-
-            // Вычисляем разницу времени
             const timeDifference = targetDate - now;
-            const isPast = timeDifference < 0;
+
             const totalSeconds = Math.floor(Math.abs(timeDifference) / 1000);
             const seconds = totalSeconds % 60;
             const totalMinutes = Math.floor(totalSeconds / 60);
@@ -127,30 +134,76 @@
             const years = Math.floor(totalDays / 365);
             const months = Math.floor((totalDays % 365) / 30);
             const days = totalDays % 30;
-
-            countdownDiv.innerHTML = ''; // Очищаем предыдущие значения
-
-            // Выводим "Осталось" или "Прошло"
+            const isPast = timeDifference < 0;
+            countdownDiv.innerHTML = '';
             countdownDiv.innerHTML += `<h2>${isPast ? 'Прошло:' : 'Осталось:'}</h2>`;
-
-            // Генерация HTML-кода для каждого временного блока
             [formatTime('г', years), formatTime('мес', months), formatTime('дн', days), formatTime('ч', hours), formatTime('мин', minutes), formatTime('сек', seconds)]
                 .forEach(time => {
                     if (time) {
                         const [value, unit] = time.split(' ');
                         countdownDiv.innerHTML += `
-                                        <div class="time-circle">
-                                            <span>${value}</span>
-                                            <span>${unit}</span>
-                                        </div>
-                                    `;
+                                                            <div class="time-circle">
+                                                                <span>${value}</span>
+                                                                <span>${unit}</span>
+                                                            </div>
+                                                        `;
                     }
                 });
 
-            errorDiv.classList.add("hidden");
+            // Проверка для воспроизведения звука
+            if (timeDifference <= 0 && setAlarmCheckbox && !audioPlayed) {
+                console.log("Попытка воспроизведения звука..."); // Debug log
+                document.getElementById("alarmSound").play()
+                    .then(() => {
+                        audioPlayed = true; // Устанавливаем флаг, чтобы избежать повторного воспроизведения
+                        errorDiv.classList.add("hidden");
+                        updateToggleButton();
+                    })
+                    .catch(error => {
+                        console.error("Ошибка воспроизведения звука:", error);
+                    });
+            }
+
+            // Обновление сообщения об ошибке
+            if (timeDifference > 0) {
+                errorDiv.classList.add("hidden");
+            } else if (timeDifference < 0 && setAlarmCheckbox) {
+                errorDiv.innerText = 'Конец времени!';
+                errorDiv.classList.remove("hidden");
+            } else {
+                errorDiv.classList.add("hidden");
+            }
         }
 
-        // Обновляем таймер каждую секунду
+        function toggleSound() {
+            const alarmSound = document.getElementById("alarmSound");
+            if (audioPlayed) {
+                stopSound();
+            } else {
+                alarmSound.play()
+                    .then(() => {
+                        audioPlayed = true;
+                        updateToggleButton();
+                    })
+                    .catch(error => {
+                        console.error("Ошибка воспроизведения звука:", error);
+                    });
+            }
+        }
+
+        function stopSound() {
+            const alarmSound = document.getElementById("alarmSound");
+            alarmSound.pause();
+            alarmSound.currentTime = 0; // Сбрасываем время воспроизведения
+            audioPlayed = false; // Сбрасываем флаг
+            updateToggleButton();
+        }
+
+        function updateToggleButton() {
+            const button = document.getElementById("toggleSound");
+            button.textContent = audioPlayed ? '⏸️' : '▶️'; // Изменение иконки на кнопке
+        }
+
         setInterval(updateCountdown, 1000);
     </script>
 </body>
