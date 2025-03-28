@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина на тему Космоса</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .options li {
+                margin: 10px 0;
+                cursor: pointer;
+                padding: 10px;
+                border: 1px solid #61dafb;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+        .correct {
+            background-color: #28a745; /* Зеленый для правильного ответа */
+        }
+
+        .incorrect {
+            background-color: #dc3545; /* Красный для неправильного ответа */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Викторина на тему Космоса</h1>
+    <div id="quiz-container"></div>
+    <button id="submit" style="display: none;">Показать результат</button>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Какая планета в нашей Солнечной системе считается 'красной планетой'?",
+                options: ["Венера", "Марс", "Юпитер", "Меркурий"],
+                answer: 1
+            },
+            {
+                question: "Что такое экзопланета?",
+                options: ["Плутонид", "Планета в другой звездной системе", "Планета, находящаяся в Солнечной системе", "Карликовая планета"],
+                answer: 1
+            },
+            {
+                question: "Какой элемент составляет около 74% массы Солнца?",
+                options: ["Гелий", "Водород", "Кислород", "Углерод"],
+                answer: 1
+            },
+            {
+                question: "Какой космический аппарат первым успешно приземлился на Луне?",
+                options: ["Mars Rover", "Apollo 11", "Voyager 1", "Chandrayaan-1"],
+                answer: 1
+            },
+            {
+                question: "Как называется наш галактический дом?",
+                options: ["Млечный Путь", "Андромеда", "Галактика Туманности", "Системное Крайское"],
+                answer: 0
+            },
+            {
+                question: "Какой астрономический объект обладает наибольшей гравитацией?",
+                options: ["Звезда", "Черная дыра", "Планета", "Суперновая"],
+                answer: 1
+            },
+            {
+                question: "Сколько луний у планеты Юпитер?",
+                options: ["16", "43", "95", "72"],
+                answer: 2
+            },
+            {
+                question: "Какой из этих объектов не является планетой?",
+                options: ["Земля", "Марс", "Солнце", "Юпитер"],
+                answer: 2
+            },
+            {
+                question: "Какова средняя температура на поверхности Венеры?",
+                options: ["-20°C", "450°C", "100°C", "200°C"],
+                answer: 1
+            },
+            {
+                question: "Какую планету в Солнечной системе называют 'Газовым Гигантом'?",
+                options: ["Меркурий", "Земля", "Юпитер", "Марс"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz-container");
+
+        // Итерация по массиву вопросов
+        questions.forEach((q, index) => {
+            // Создание нового элемента div для вопроса
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question"); // Добавление класса "question" для стилизации
+            // Установка HTML контента вопроса, индекс + 1 для нумерации
+            questionElement.innerHTML = `<h2>${index + 1}. ${q.question}</h2>`;
+
+            // Создание элемента списка (ul) для вариантов ответов
+            const optionsList = document.createElement("ul");
+            optionsList.classList.add("options"); // Добавление класса "options" для стилизации
+
+            // Итерация по массиву вариантов ответов
+            q.options.forEach((option, i) => {
+                // Создание нового элемента списка (li) для каждого варианта
+                const optionItem = document.createElement("li");
+                optionItem.textContent = option; // Установка текста варианта ответа
+                // Обработка события клика на вариант ответа
+                optionItem.onclick = () => selectAnswer(index, i, optionItem);
+                // Добавление элемента li в список вариантов
+                optionsList.appendChild(optionItem);
+            });
+
+            // Добавление списка вариантов ответов в элемент вопроса
+            questionElement.appendChild(optionsList);
+            // Добавление элемента вопроса в главный контейнер викторины
+            quizContainer.appendChild(questionElement);
+        });
+
+        let score = 0; // Переменная для хранения текущего счёта пользователя
+
+        // Функция для обработки выбора ответа
+        function selectAnswer(questionIndex, selectedIndex, optionItem)
+        {
+            const correctIndex = questions[questionIndex].answer; // Индекс правильного ответа для текущего вопроса
+            const options = optionItem.parentNode.children; // Получение всех вариантов ответов текущего вопроса
+
+            // Проверка, выбран ли правильный ответ
+            if (selectedIndex === correctIndex)
+            {
+                optionItem.classList.add("correct"); // Подсветка правильного ответа
+                score++; // Увеличение счёта, если ответ правильный
+            }
+            else
+            {
+                optionItem.classList.add("incorrect"); // Подсветка неверного ответа
+
+                // Подсветка правильного ответа, если выбран неверный ответ
+                options[correctIndex].classList.add("correct");
+            }
+
+            // Блокировка возможности выбора других ответов после того, как пользователь уже ответил
+            Array.from(options).forEach(option => {
+                option.onclick = null; // Удаление обработчиков событий для всех вариантов
+            });
+
+            // Показ кнопки для показа результата викторины
+            document.getElementById("submit").style.display = "block";
+        }
+
+        document.getElementById("submit").onclick = function () {
+            document.getElementById("result").innerHTML = `<h2>Ваш результат: ${score} из ${questions.length}</h2>`;
+        };
+
+        // Для адаптивного отображения
+        window.onload = function () {
+            document.getElementById("submit").style.display = "none";
+        };
+    </script>
+</body>
+</html>

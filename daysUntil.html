@@ -90,6 +90,35 @@
     <label for="targetDate">Выберите дату:</label>
     <input type="datetime-local" id="targetDate">
 
+    <label for="timezone">Выберите часовой пояс:</label>
+    <select id="timezone">
+        <option value="-12:00">UTC-12:00</option>
+        <option value="-11:00">UTC-11:00</option>
+        <option value="-10:00">UTC-10:00</option>
+        <option value="-9:00">UTC-09:00</option>
+        <option value="-8:00">UTC-08:00</option>
+        <option value="-7:00">UTC-07:00</option>
+        <option value="-6:00">UTC-06:00</option>
+        <option value="-5:00">UTC-05:00</option>
+        <option value="-4:00">UTC-04:00</option>
+        <option value="-3:00">UTC-03:00</option>
+        <option value="-2:00">UTC-02:00</option>
+        <option value="-1:00">UTC-01:00</option>
+        <option value="00:00" selected>UTC</option>
+        <option value="+1:00">UTC+01:00</option>
+        <option value="+2:00">UTC+02:00</option>
+        <option value="+3:00">UTC+03:00</option>
+        <option value="+4:00">UTC+04:00</option>
+        <option value="+5:00">UTC+05:00</option>
+        <option value="+6:00">UTC+06:00</option>
+        <option value="+7:00">UTC+07:00</option>
+        <option value="+8:00">UTC+08:00</option>
+        <option value="+9:00">UTC+09:00</option>
+        <option value="+10:00">UTC+10:00</option>
+        <option value="+11:00">UTC+11:00</option>
+        <option value="+12:00">UTC+12:00</option>
+    </select>
+
     <label for="setAlarm">Установить будильник:</label>
     <input type="checkbox" id="setAlarm">
 
@@ -109,6 +138,7 @@
         function updateCountdown() {
             const targetDateInput = document.getElementById("targetDate").value;
             const setAlarmCheckbox = document.getElementById("setAlarm").checked;
+            const timezoneOffset = document.getElementById("timezone").value; // Получаем выбранный часовой пояс
             const countdownDiv = document.getElementById("countdown");
             const errorDiv = document.getElementById("error");
 
@@ -119,9 +149,20 @@
                 return;
             }
 
+            // Создание целевой даты из значения ввода
             const targetDate = new Date(targetDateInput);
+
+            // Разделяем смещение по часам и минутам
+            const [hoursOffset, minutesOffset] = timezoneOffset.split(':').map(num => parseInt(num));
+
+            // Применяем смещение к целевой дате в миллисекундах
+            const totalOffsetMilliseconds = (hoursOffset * 60 + minutesOffset) * 60 * 1000;
+
+            // Корректируем целевую дату с учетом часового пояса
+            const adjustedTargetDate = new Date(targetDate.getTime() + totalOffsetMilliseconds);
+
             const now = new Date();
-            const timeDifference = targetDate - now;
+            const timeDifference = adjustedTargetDate - now;
 
             const totalSeconds = Math.floor(Math.abs(timeDifference) / 1000);
             const seconds = totalSeconds % 60;
@@ -135,6 +176,7 @@
             const months = Math.floor((totalDays % 365) / 30);
             const days = totalDays % 30;
             const isPast = timeDifference < 0;
+
             countdownDiv.innerHTML = '';
             countdownDiv.innerHTML += `<h2>${isPast ? 'Прошло:' : 'Осталось:'}</h2>`;
             [formatTime('г', years), formatTime('мес', months), formatTime('дн', days), formatTime('ч', hours), formatTime('мин', minutes), formatTime('сек', seconds)]
@@ -142,11 +184,11 @@
                     if (time) {
                         const [value, unit] = time.split(' ');
                         countdownDiv.innerHTML += `
-                                                            <div class="time-circle">
-                                                                <span>${value}</span>
-                                                                <span>${unit}</span>
-                                                            </div>
-                                                        `;
+                                                        <div class="time-circle">
+                                                            <span>${value}</span>
+                                                            <span>${unit}</span>
+                                                        </div>
+                                                    `;
                     }
                 });
 
