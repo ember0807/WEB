@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра в Крестики-Нолики</title>
+    <style>
+        body 
+        {
+            font-family: Arial, sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 
+        {
+            margin-bottom: 20px;
+        }
+
+        #board 
+        {
+            display: grid; /* Используем Grid Layout для создания сетки */
+            grid-template-columns: repeat(3, 100px); /* Три колонки по 100px */
+            grid-template-rows: repeat(3, 100px); /* Три строки по 100px */
+            gap: 5px; /* Промежуток в 5px между ячейками */
+        }
+
+        .cell {
+            width: 100px; /* Ширина ячейки */
+            height: 100px; /* Высота ячейки */
+            display: flex; /* Флекс-контейнер для центрирования содержимого */
+            align-items: center; /* Центрируем содержимое ячейки по вертикали */
+            justify-content: center; /* Центрируем содержимое ячейки по горизонтали */
+            font-size: 2rem; /* Размер шрифта в ячейках */
+            background-color: #5b5a9c; /* Фоновый цвет ячеек */
+            cursor: pointer; /* Изменяем курсор на указатель при наведении */
+            transition: background-color 0.3s; /* Плавный переход для фона */
+        }
+
+            .cell:hover {
+                background-color: #43258f; /* Меняем цвет фона при наведении */
+            }
+
+        .message 
+        {
+            margin-top: 20px;
+            font-size: 1.5rem;
+        }
+
+        .reset 
+        {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #61dafb;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .reset:hover 
+            {
+                background-color: #21a1f1;
+            }
+    </style>
+</head>
+<body>
+
+    <h1>Крестики-Нолики</h1>
+    <div id="board"></div>
+    <div class="message" id="message"></div>
+    <button class="reset" id="reset">Сбросить игру</button>
+
+    <script>
+        // Получаем ссылки на необходимые элементы из DOM
+        const board = document.getElementById('board'); // Контейнер для игрового поля
+        const message = document.getElementById('message'); // Элемент для вывода сообщения о ходе
+        const resetButton = document.getElementById('reset'); // Кнопка для сброса игры
+
+        // Состояние игры
+        let currentPlayer = 'X'; // Текущий игрок (начинает игрок X)
+        let gameActive = true; // Флаг активной игры
+        let boardState = ['', '', '', '', '', '', '', '', '']; // Состояние ячеек игры (изначально пустое)
+
+        // Возможные выигрышные комбинации (индексы ячеек)
+        const winningConditions =
+        [
+            [0, 1, 2], // Горизонтальные комбинации
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6], // Вертикальные комбинации
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8], // Диагональные комбинации
+            [2, 4, 6]
+        ];
+
+        // Функция для инициализации игрового поля
+        function createBoard()
+        {
+            // Очищаем текущее состояние доски
+            board.innerHTML = '';
+            // Сбрасываем состояние ячеек
+            boardState = ['', '', '', '', '', '', '', '', ''];
+            // Активируем игру
+            gameActive = true;
+            // Устанавливаем начального игрока
+            currentPlayer = 'X';
+            // Обновляем текст сообщения
+            message.textContent = 'Сейчас ходит игрок X';
+
+            // Создание ячеек (div) для игрового поля
+            for (let i = 0; i < 9; i++)
+            {
+                const cell = document.createElement('div'); // Создаём новый div элемент
+                cell.classList.add('cell'); // Добавляем класс для стилизации
+                cell.dataset.index = i; // Сохраняем индекс ячейки в атрибуте data-index
+                cell.addEventListener('click', handleCellClick); // Добавляем обработчик кликов
+                board.appendChild(cell); // Добавляем ячейку в контейнер
+            }
+        }
+
+        // Функция обработки клика по ячейке
+        function handleCellClick(event)
+        {
+            const cell = event.target; // Получаем ячейку, по которой кликнули
+            const index = cell.dataset.index; // Получаем индекс ячейки
+
+            // Проверяем, была ли ячейка нажата и активна ли игра
+            if (boardState[index] !== '' || !gameActive)
+            {
+                return; // Если ячейка уже занята или игра не активна, выходим из функции
+            }
+
+            // Запоминаем текущий ход игрока
+            boardState[index] = currentPlayer;
+            cell.textContent = currentPlayer; // Обновляем текст в ячейке
+
+            // Проверяем, есть ли победитель
+            if (checkWinner())
+            {
+                message.textContent = `Игрок ${currentPlayer} победил!`; // Сообщаем о победе
+                gameActive = false; // Деактивируем игру
+            }
+            else if (boardState.every(cell => cell !== ''))
+            {
+                // Проверяем, нет ли ничьей (все ячейки заполнены)
+                message.textContent = 'Ничья!'; // Сообщаем о ничье
+                gameActive = false; // Деактивируем игру
+            }
+            else
+            {
+                // Меняем текущего игрока и обновляем сообщение
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; // Меняем игрока
+                message.textContent = `Сейчас ходит игрок ${currentPlayer}`; // Обновляем сообщение
+            }
+        }
+
+        // Функция проверки наличия победителя
+        function checkWinner()
+        {
+            return winningConditions.some(condition =>
+            {
+                const [a, b, c] = condition; // Получаем индексы выигрышной комбинации
+                return boardState[a] === currentPlayer && boardState[b] === currentPlayer && boardState[c] === currentPlayer;
+                // Проверяем, заняты ли все три ячейки текущим игроком
+            });
+        }
+
+        // Обработчик события на кнопку сброса
+        resetButton.addEventListener('click', createBoard);
+
+        // Инициализация игры при загрузке страницы
+        createBoard();
+    </script>
+</body>
+</html>
