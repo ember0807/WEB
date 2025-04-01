@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Управление Группой</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+			background-color: #1c1c1c; 
+			color: #f0f0f0; 
+			display: flex;
+			flex-direction: column;
+			align-items: center; /* Центрирование элементов по горизонтали */
+		}
+
+		h1 {
+			color: #ffffff; 
+		}
+
+		button {
+			padding: 10px 15px;
+			margin: 10px 0;
+			background-color: #4CAF50; 
+			color: white; 
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px; 
+		}
+
+			button:hover {
+				background-color: #45a049;
+			}
+
+		#output {
+			margin-top: 20px;
+			padding: 10px;
+			border: 1px solid #ccc; /* Объектный стиль для области вывода */
+			border-radius: 5px;
+			background-color: #333; 
+			color: #fff; 
+			max-height: 300px; /* Ограничение максимальной высоты области вывода */
+			overflow-y: auto; /* Прокрутка по вертикали при переполнении */
+			width: 100%; /* Ширина области вывода */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень для визуального разделения */
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Управление Группой Студентов</h1>
+
+	<!-- Кнопки для взаимодействия с пользователем -->
+	<button id="displayButton">Вывести информацию о группе</button>
+	<button id="saveButton">Сохранить Группу в Файл</button>
+	<input type="file" id="fileInput" accept=".json" /> <!-- Поле для загрузки файла JSON -->
+
+	<div id="output"></div> <!-- Контейнер для вывода информации о группе -->
+
+	<script>
+		// Определение класса "Человек"
+		class Human
+		{
+			#last_name; // Приватное поле для фамилии
+			#first_name; // Приватное поле для имени
+			#age; // Приватное поле для возраста
+
+			constructor(last_name, first_name, age)
+			{
+				this.#last_name = last_name; // Установка фамилии
+				this.#first_name = first_name; // Установка имени
+				this.#age = age; // Установка возраста
+			}
+
+			// Геттеры для доступа к приватным полям
+			get last_name() { return this.#last_name; }
+			get first_name() { return this.#first_name; }
+			get age() { return this.#age; }
+
+			// Сеттер для изменения возраста с проверкой
+			set age(value)
+			{
+				if (typeof value !== 'number' || value < 0)
+				{
+					throw new Error("Age must be a positive number."); // Условие на проверку возраста
+				}
+				this.#age = value; // Установка возраста
+			}
+
+			// Метод для строкового представления объекта
+			toString()
+			{
+				return `${this.last_name} ${this.first_name} (Age: ${this.age})`; // Форматированная строка
+			}
+		}
+
+		// Определение класса "Студент", наследующего от "Человек"
+		class Student extends Human
+		{
+			#speciality; // Приватное поле для специальности
+			#group; // Приватное поле для группы
+			#rating; // Приватное поле для рейтинга
+			#attendance; // Приватное поле для посещаемости
+
+			constructor(last_name, first_name, age, speciality, group, rating, attendance)
+			{
+				super(last_name, first_name, age); // Вызов конструктора родителя
+				this.#speciality = speciality; // Установка специальности
+				this.#group = group; // Установка группы
+				this.#rating = rating; // Установка рейтинга
+				this.#attendance = attendance; // Установка посещаемости
+			}
+
+			// Метод для строкового представления студента
+			toString()
+			{
+				return `Student: ${super.toString()} (Speciality: ${this.#speciality}, Group: ${this.#group}, Rating: ${this.#rating}, Attendance: ${this.#attendance})`; // Форматированная строка
+			}
+
+			// Метод для получения JSON-представления студента
+			get JSON()
+			{
+				return{
+					type: 'Student',
+					last_name: this.last_name,
+					first_name: this.first_name,
+					age: this.age,
+					speciality: this.#speciality,
+					group: this.#group,
+					rating: this.#rating,
+					attendance: this.#attendance,
+				};
+			}
+		}
+
+		// Определение класса "Преподаватель", наследующего от "Человек"
+		class Teacher extends Human
+		{
+			#speciality; // Приватное поле для специальности
+			#experience; // Приватное поле для опыта работы
+
+			constructor(last_name, first_name, age, speciality, experience)
+			{
+				super(last_name, first_name, age); // Вызов конструктора родителя
+				this.#speciality = speciality; // Установка специальности
+				this.#experience = experience; // Установка опыта работы
+			}
+
+			// Метод для строкового представления преподавателя
+			toString()
+			{
+				return `Teacher: ${super.toString()} (Speciality: ${this.#speciality}, Experience: ${this.#experience} years)`; // Форматированная строка
+			}
+
+			// Метод для получения JSON-представления преподавателя
+			get JSON()
+			{
+				return{
+					type: 'Teacher',
+					last_name: this.last_name,
+					first_name: this.first_name,
+					age: this.age,
+					speciality: this.#speciality,
+					experience: this.#experience,
+				};
+			}
+		}
+
+		// Функция сохранения группы в файл
+        //https://learn.javascript.ru/blob
+		function saveGroupToFile(group)
+		{
+			const json = group.map(person => person.JSON); // Преобразование группы в JSON
+			const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' }); // Создание объекта Blob
+			const url = URL.createObjectURL(blob); // Создание URL для Blob
+
+			// Создание ссылки для загрузки файла
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'group.json'; // Имя файла для сохранения
+			document.body.appendChild(a);
+			a.click(); // Авто клик для загрузки
+			document.body.removeChild(a); // Удаление временной ссылки
+			URL.revokeObjectURL(url); // Освобождение ресурсов
+		}
+
+		// Функция загрузки группы из файла
+		function loadGroupFromFile(event)
+		{
+			const file = event.target.files[0]; // Получение выбранного файла
+			const reader = new FileReader(); // Создание объекта FileReader
+
+			reader.onload = function (e)
+			{ // Обработка события загрузки файла
+				try
+				{
+					const JSONData = e.target.result; // Получение данных файла
+					const loadedGroup = JSON.parse(JSONData); // Парсинг JSON данных
+
+					// Преобразование загруженных данных обратно в объекты
+					const groupObjects = loadedGroup.map(item =>
+					{
+						if (item.type === 'Student')
+						{
+							return new Student(item.last_name, item.first_name, item.age, item.speciality, item.group, item.rating, item.attendance);
+						}
+						else if (item.type === 'Teacher')
+						{
+							return new Teacher(item.last_name, item.first_name, item.age, item.speciality, item.experience);
+						}
+						return new Human(item.last_name, item.first_name, item.age); // Для случая, если это Human
+					});
+
+					updateOutput(groupObjects); // Обновление вывода с новой группой
+				}
+				catch (error)
+				{
+					console.error('Ошибка при загрузке группы:', error); // Обработка ошибок
+				}
+			};
+
+			reader.readAsText(file); // Чтение файла как текст
+		}
+
+		// Функция обновления вывода информации о группе
+		function updateOutput(group)
+		{
+			const output = document.getElementById('output'); // Получаем контейнер для вывода
+			output.innerHTML = ''; // Очищаем предыдущий вывод
+
+			// Добавление каждого объекта группы в контейнер
+			group.forEach(person =>
+			{
+				const personDiv = document.createElement('div'); // Создание нового div
+				personDiv.innerHTML = person.toString(); // Установка текста
+				output.appendChild(personDiv); // Добавление в контейнер
+			});
+		}
+
+		// Изначальная группа с объектами
+		let group =
+		[
+			new Human("Montana", "Antonio", 25), // Создание объекта Human
+			new Student("Pinkman", "Jessie", 22, "Chemistry", "WW_220", 90, 99), // Создание объекта Student
+			new Teacher("White", "Walter", 50, "Chemistry", 25), // Создание объекта Teacher
+		];
+
+		// Привязка событий к кнопкам
+		document.getElementById('displayButton').onclick = () => updateOutput(group); // Отображение информации о группе
+		document.getElementById('saveButton').onclick = () => saveGroupToFile(group); // Сохранение группы в файл
+		document.getElementById('fileInput').addEventListener('change', loadGroupFromFile); // Загрузка из файла
+	</script>
+
+</body>
+</html>
