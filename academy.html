@@ -64,38 +64,48 @@
 		// Определение класса "Человек"
 		class Human
 		{
-			#last_name; // Приватное поле для фамилии
-			#first_name; // Приватное поле для имени
-			#age; // Приватное поле для возраста
+            #last_name; // Приватное поле для фамилии
+            #first_name; // Приватное поле для имени
+            #age; // Приватное поле для возраста
 
 			constructor(last_name, first_name, age)
 			{
-				this.#last_name = last_name; // Установка фамилии
-				this.#first_name = first_name; // Установка имени
-				this.#age = age; // Установка возраста
-			}
+                this.#last_name = last_name; // Установка фамилии
+                this.#first_name = first_name; // Установка имени
+                this.#age = age; // Установка возраста
+            }
 
-			// Геттеры для доступа к приватным полям
-			get last_name() { return this.#last_name; }
-			get first_name() { return this.#first_name; }
-			get age() { return this.#age; }
+            // Геттеры для доступа к приватным полям
+            get last_name() { return this.#last_name; }
+            get first_name() { return this.#first_name; }
+            get age() { return this.#age; }
 
-			// Сеттер для изменения возраста с проверкой
+            // Сеттер для изменения возраста с проверкой
 			set age(value)
 			{
-				if (typeof value !== 'number' || value < 0)
-				{
-					throw new Error("Age must be a positive number."); // Условие на проверку возраста
-				}
-				this.#age = value; // Установка возраста
-			}
+                if (typeof value !== 'number' || value < 0) {
+                    throw new Error("Age must be a positive number."); // Условие на проверку возраста
+                }
+                this.#age = value; // Установка возраста
+            }
 
-			// Метод для строкового представления объекта
+            // Метод для строкового представления объекта
 			toString()
 			{
-				return `${this.last_name} ${this.first_name} (Age: ${this.age})`; // Форматированная строка
-			}
-		}
+                return `${this.last_name} ${this.first_name} (Age: ${this.age})`; // Форматированная строка
+            }
+
+			get JSON()
+			{
+				return{
+                    type: 'Human',
+                    last_name: this.last_name,
+                    first_name: this.first_name,
+                    age: this.age,
+                };
+            }
+        }
+
 
 		// Определение класса "Студент", наследующего от "Человек"
 		class Student extends Human
