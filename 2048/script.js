@@ -66,20 +66,20 @@ function updateUserScore() {
 
 // Функция для обновления отображения счетов
 function renderBestScore() {
-    const bestScoreContainer = document.getElementById('best-score'); // Обновление элемента с лучшим счетом
-    const currentScoreContainer = document.getElementById('player-score'); // Элемент для текущего счета
+    const bestScoreContainer = document.getElementById('best-score');
+    const currentScoreContainer = document.getElementById('player-score');
 
     if (currentUser) {
-        bestScoreContainer.innerText = `Лучший счет: ${users[currentUser]}`;
-        currentScoreContainer.innerText = `Текущий счет: ${score}`; // Отображаем текущий счет
+        bestScoreContainer.innerText = `Лучший счет: ${users[currentUser] || 0}`; // Используем || 0, если пользователь никогда не играл
+        currentScoreContainer.innerText = `Текущий счет: ${score}`;
     } else {
         bestScoreContainer.innerText = 'Выберите игрока для начала.';
-        currentScoreContainer.innerText = ''; // Скрыть текущий счет если игрока нет
+        currentScoreContainer.innerText = '';
     }
 
     // Отображение глобального рекорда
-    const globalBestScoreContainer = document.getElementById('global-best-score'); // Элемент для отображения глобального рекорда
-    globalBestScoreContainer.innerText = `Глобальный лучший счет: ${globalBestScore}`; // Обновляем отображение глобального рекорда
+    const globalBestScoreContainer = document.getElementById('global-best-score');
+    globalBestScoreContainer.innerText = `Глобальный лучший счет: ${globalBestScore}`;
 }
 
 // Функция для установки текущего пользователя
