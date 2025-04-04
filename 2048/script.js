@@ -39,38 +39,38 @@ function render() {
 }
 
 // Функция для сохранения пользователей
-//function saveUserScores() {
-//    localStorage.setItem('users', JSON.stringify(users));
-//}
-async function saveUserScores() {
-    const response = await fetch('http://localhost:3000/save-score', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: currentUser, score }),
-    });
-
-    if (!response.ok) {
-        console.error('Failed to save score');
-    }
+function saveUserScores() {
+    localStorage.setItem('users', JSON.stringify(users));
 }
+//async function saveUserScores() {
+//    const response = await fetch('http://localhost:3000/save-score', {
+//        method: 'POST',
+//        headers: {
+//            'Content-Type': 'application/json',
+//        },
+//        body: JSON.stringify({ username: currentUser, score }),
+//    });
 
-// Функция загрузки пользователей
-//function loadUserScores() {
-//    const storedUsers = localStorage.getItem('users');
-//    if (storedUsers) {
-//        users = JSON.parse(storedUsers);
+//    if (!response.ok) {
+//        console.error('Failed to save score');
 //    }
 //}
-async function loadUserScores() {
-    const response = await fetch('http://localhost:3000/load-scores');
-    if (response.ok) {
-        users = await response.json();
-    } else {
-        console.error('Failed to load scores');
+
+// Функция загрузки пользователей
+function loadUserScores() {
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+        users = JSON.parse(storedUsers);
     }
 }
+//async function loadUserScores() {
+//    const response = await fetch('http://localhost:3000/load-scores');
+//    if (response.ok) {
+//        users = await response.json();
+//    } else {
+//        console.error('Failed to load scores');
+//    }
+//}
 
 // Функция для обновления лучшего счета
 function updateUserScore() {
