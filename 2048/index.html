@@ -4,30 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048 Game</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Подключение CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="header">
         <form id="username-form" class="username-form">
-            <input type="text" name="username" placeholder="Введите имя пользователя" required />
-            <button type="submit">Играть</button>
+            <input type="text" name="username" placeholder="Введите имя" required>
+            <button type="submit">Начать</button>
         </form>
     </div>
-
     <div class="user-info">
-        <div id="global-best-score">Глобальный лучший счет: 0</div>
-        <div class="best-score" id="best-score">Лучший счет: 0</div>
-        <div class="player-score" id="player-score">Текущий счет: 0</div> <!-- Исправлено с player-score на current-score -->
+        <div id="global-best-score" class="best-score">Глобальный лучший счет: 0</div>
+        <div id="player-score" class="current-score">Текущий счет: 0</div>
+        <div id="best-score" class="player-score">Лучший счет: 0</div>
     </div>
-
     <div class="game-container">
-        <div id="grid" class="grid"></div> <!-- Контейнер для игры -->
-    </div>
-
-    <div class="user-info">
+        <div id="grid" class="grid"></div>
         <button id="restart">Перезапустить</button>
     </div>
-
-    <script src="script.js"></script> <!-- Подключение JS -->
+    <script src="script.js"></script>
 </body>
 </html>
