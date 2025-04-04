@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<group name="Computer Science">
+	<students>
+		<student>
+			<last_name>Smith</last_name>
+			<first_name>John</first_name>
+			<age>20</age>
+			<speciality>Software Engineering</speciality>
+		</student>
+		<student>
+			<last_name>Doe</last_name>
+			<first_name>Jane</first_name>
+			<age>22</age>
+			<speciality>Data Science</speciality>
+		</student>
+	</students>
+	<teachers>
+		<teacher>
+			<last_name>Brown</last_name>
+			<first_name>Tom</first_name>
+			<age>45</age>
+			<speciality>Computer Science</speciality>
+		</teacher>
+		<teacher>
+			<last_name>Johnson</last_name>
+			<first_name>Mary</first_name>
+			<age>38</age>
+			<speciality>Mathematics</speciality>
+		</teacher>
+	</teachers>
+</group>
