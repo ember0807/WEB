@@ -192,20 +192,34 @@ body {
 
 /* Адаптивные стили */
 @media (max-width: 600px) {
+    body {
+        overflow: hidden; /* Блокируем прокрутку */
+    }
     .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr); /* Устанавливаем 3 колонки для мобильных */
-        grid-template-rows: repeat(4, 1fr); /* Устанавливаем 5 строк для мобильных */
-        gap: 5px; /* Отступы между плитками */
+        grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+        gap: 10px; /* Отступы между плитками */
+        background-color: #3b3b3b; /* Цвет фона игрового поля */
+        padding: 10px; /* Отступ для плиток */
         width: 90vw; /* Ширина сетки */
-        height: auto; /* Высота сетки, соответствующая плиткам */
-        padding: 10px;
+        height: 90vw; /* Высота сетки для квадратной формы */
+        max-width: 400px; /* Ограничение максимальной ширины сетки */
+        max-height: 400px; /* Ограничение максимальной высоты сетки */
+        border-radius: 5px; /* Закругленные углы для поля */
     }
 
     .tile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%; /* Плитки занимают всю ширину ячейки */
         height: 100%; /* Плитки занимают всю высоту ячейки */
-        font-size: 16px; /* Уменьшение размера шрифта для мобильных */
+        font-size: 24px; /* Размер текста */
+        font-weight: bold; /* Жирный текст */
+        border-radius: 5px; /* Закругленные углы плиток */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Тень */
+        transition: all 0.3s ease;
+        color: #776e65; /* Стандартный цвет текста */
     }
     .game-container {
         display: flex;
