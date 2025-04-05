@@ -194,11 +194,11 @@ body {
 @media (max-width: 600px) {
     .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr); /* Устанавливаем 3 колонки для мобильных */
+        grid-template-rows: repeat(4, 1fr); /* Устанавливаем 5 строк для мобильных */
         gap: 5px; /* Отступы между плитками */
         width: 90vw; /* Ширина сетки */
-        height: 190vw; /* Высота сетки, соответствующая плиткам */
+        height: auto; /* Высота сетки, соответствующая плиткам */
         padding: 10px;
     }
 
