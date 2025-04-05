@@ -1,4 +1,5 @@
-﻿body {
+﻿/* Основные стили */
+body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -17,15 +18,51 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* Общие стили для кнопок */
+.button {
+    background-color: #8f7a66; /* Цвет фона кнопок */
+    color: white; /* Цвет текста кнопок */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Закругление углов кнопок */
+    padding: 10px 20px; /* Отступы */
+    font-size: 18px; /* Размер шрифта */
+    cursor: pointer; /* Указатель руки при наведении */
+    transition: background-color 0.3s, transform 0.3s; /* Плавные переходы для фона и масштаба */
+    margin: 5px; /* Отступ между кнопками */
+}
+
+    /* Эффект при наведении и фокусе на кнопки */
+    .button:hover,
+    .button:focus {
+        background-color: #7a6d5c; /* Цвет фона при наведении */
+        outline: none; /* Убираем обводку */
+        transform: scale(1.05); /* Увеличиваем кнопку при наведении */
+    }
+
+/* Стили для поля ввода имени */
+.input-name {
+    width: 200px; /* Ширина поля ввода */
+    height: 40px; /* Высота поля ввода */
+    border: 2px solid #8f7a66; /* Рамка */
+    border-radius: 5px; /* Закругление углов */
+    padding: 10px; /* Отступы */
+    font-size: 18px; /* Размер шрифта */
+    margin: 5px; /* Отступ сверху и снизу */
+}
+
+/* Контейнер для контролов */
+.controls-container {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    align-items: center; /* Центрируем по горизонтали */
+}
+
 .username-form {
     display: flex;
     align-items: center;
 }
 
-    .username-form input {
-        margin-right: 10px;
-    }
-
+/* Пользовательская информация */
 .user-info {
     display: flex;
     flex-direction: column;
@@ -35,31 +72,32 @@
     margin-bottom: 10px;
 }
 
+/* Стили для отображения счета */
 .best-score,
 .current-score,
 .player-score {
     text-align: center;
     font-size: 24px; /* Размер шрифта */
-    font-family: 'Arial', sans-serif; /* Шрифт */
     color: #fff; /* Цвет текста */
     margin: 10px 0;
-    padding: 10px; /* Отступы вокруг текста */
+    padding: 10px; /* Отступы */
     border-radius: 5px; /* Закругление углов */
-    background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный белый фон */
+    background-color: rgba(255, 255, 255, 0.2); /* Полупрозрачный цвет фона */
 }
 
 /* Разные цвета фона для каждого поля */
 .best-score {
-    background-color: rgba(76, 175, 80, 0.3); /* Зеленый для лучшего счета */
+    background-color: rgba(76, 175, 80, 0.3);
 }
-
+/* Зеленый для лучшего счета */
 .current-score {
-    background-color: rgba(33, 150, 243, 0.3); /* Голубой для текущего счета */
+    background-color: rgba(33, 150, 243, 0.3);
 }
-
+/* Голубой для текущего счета */
 .player-score {
-    background-color: rgba(255, 193, 7, 0.3); /* Желтый для счета игрока */
+    background-color: rgba(255, 193, 7, 0.3);
 }
+/* Желтый для счета игрока */
 
 .game-container {
     display: flex;
@@ -68,10 +106,11 @@
     margin-top: 50px;
 }
 
+/* Сетка и плитки игры */
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 100px);
-    gap: 5px;
+    gap: 5px; /* Отступы между плитками */
     background-color: #3b3b3b; /* Цвет фона игрового поля */
     padding: 10px; /* Отступ для плиток */
     border-radius: 5px; /* Закругленные углы для поля */
@@ -83,58 +122,59 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    font-size: 24px; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    border-radius: 5px; /* Закругленные углы плиток */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Тень */
     transition: all 0.3s ease;
     color: #776e65; /* Стандартный цвет текста */
 }
 
     /* Цвета для плиток с разными значениями */
     .tile[data-value="2"] {
-        background-color: #eee4da; /* Светло-бежевый */
+        background-color: #eee4da;
     }
-
+    /* Светло-бежевый */
     .tile[data-value="4"] {
-        background-color: #ede0c8; /* Очень светлый бежевый */
+        background-color: #ede0c8;
     }
-
+    /* Очень светлый бежевый */
     .tile[data-value="8"] {
-        background-color: #f2b179; /* Оранжевый */
+        background-color: #f2b179;
     }
-
+    /* Оранжевый */
     .tile[data-value="16"] {
-        background-color: #f59563; /* Ярко-оранжевый */
+        background-color: #f59563;
     }
-
+    /* Ярко-оранжевый */
     .tile[data-value="32"] {
-        background-color: #f67c5f; /* Тёмный оранжевый */
+        background-color: #f67c5f;
     }
-
+    /* Тёмный оранжевый */
     .tile[data-value="64"] {
-        background-color: #f75e3b; /* Красный */
+        background-color: #f75e3b;
     }
-
+    /* Красный */
     .tile[data-value="128"] {
-        background-color: #f9f94e; /* Светло-жёлтый */
+        background-color: #f9f94e;
     }
-
+    /* Светло-жёлтый */
     .tile[data-value="256"] {
-        background-color: #f9e84d; /* Тёмный жёлтый */
+        background-color: #f9e84d;
     }
-
+    /* Тёмный жёлтый */
     .tile[data-value="512"] {
-        background-color: #edcf72; /* Жёлто-коричневый */
+        background-color: #edcf72;
     }
-
+    /* Жёлто-коричневый */
     .tile[data-value="1024"] {
-        background-color: #edcc61; /* Тёмный желтый */
+        background-color: #edcc61;
     }
-
+    /* Тёмный желтый */
     .tile[data-value="2048"] {
-        background-color: #edc53f; /* Золотистый или оливковый */
+        background-color: #edc53f;
     }
+    /* Золотистый или оливковый */
 
     /* Цвет текста для плиток с большими значениями */
     .tile[data-value="128"],
@@ -145,20 +185,20 @@
         color: white; /* Белый цвет текста для лучшей читаемости */
     }
 
+    /* Эффект при блоках в игре */
     .tile:hover {
         box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5); /* Более яркая тень при наведении */
-        transform: scale(1.05);
     }
 
-/* Медиазапрос для адаптивности */
+/* Адаптивные стили */
 @media (max-width: 600px) {
     .grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr); /* Переход на 3 колонки */
     }
 
     .tile {
         width: 80px;
         height: 80px;
-        font-size: 20px;
+        font-size: 20px; /* Уменьшение шрифта для маленьких экранов */
     }
 }

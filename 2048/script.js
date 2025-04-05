@@ -1,46 +1,53 @@
 let users = {};
 let currentUser = null;
 let score = 0;
-let globalBestScore = 0; // Переменная для хранения лучшего счета среди всех пользователей
-const grid = new Array(16).fill(0); // Создание массива для игры
+let globalBestScore = 0; // РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р»СѓС‡С€РµРіРѕ СЃС‡РµС‚Р° СЃСЂРµРґРё РІСЃРµС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+const grid = new Array(16).fill(0); // РЎРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° РґР»СЏ РёРіСЂС‹
 
-// Функция для инициализации игры
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РёРіСЂС‹
 function initializeGame() {
-    grid.fill(0); // Очищаем сетку
-    score = 0; // Сбрасываем счет
-    addRandomTile(); // Добавляем плитку
-    addRandomTile(); // Добавляем еще одну плитку
-    render(); // Отображаем состояние сетки
+    grid.fill(0); // РћС‡РёС‰Р°РµРј СЃРµС‚РєСѓ
+    score = 0; // РЎР±СЂР°СЃС‹РІР°РµРј СЃС‡РµС‚
+    addRandomTile(); // Р”РѕР±Р°РІР»СЏРµРј РїР»РёС‚РєСѓ
+    addRandomTile(); // Р”РѕР±Р°РІР»СЏРµРј РµС‰Рµ РѕРґРЅСѓ РїР»РёС‚РєСѓ
+    render(); // РћС‚РѕР±СЂР°Р¶Р°РµРј СЃРѕСЃС‚РѕСЏРЅРёРµ СЃРµС‚РєРё
 }
 
-// Функция для добавления случайной плитки
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЃР»СѓС‡Р°Р№РЅРѕР№ РїР»РёС‚РєРё
 function addRandomTile() {
     const emptyIndices = grid.map((val, index) => val === 0 ? index : -1).filter(val => val !== -1);
     if (emptyIndices.length > 0) {
         const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-        grid[randomIndex] = Math.random() < 0.9 ? 2 : 4; // 90% вероятность добавить 2
+        grid[randomIndex] = Math.random() < 0.9 ? 2 : 4; // 90% РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РґРѕР±Р°РІРёС‚СЊ 2
     }
 }
 
-// Функция для отрисовки сетки
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃРµС‚РєРё
 function render() {
     const gridContainer = document.getElementById('grid');
-    gridContainer.innerHTML = ''; // Очищаем контейнер перед отрисовкой
+    gridContainer.innerHTML = ''; // РћС‡РёС‰Р°РµРј РєРѕРЅС‚РµР№РЅРµСЂ РїРµСЂРµРґ РѕС‚СЂРёСЃРѕРІРєРѕР№
 
     grid.forEach(value => {
         const tile = document.createElement('div');
         tile.classList.add('tile');
-        tile.setAttribute('data-value', value); // Установка значения для стиля
-        tile.innerText = value > 0 ? value : ''; // Отображение только ненулевых значений
+        tile.setAttribute('data-value', value); // РЈСЃС‚Р°РЅРѕРІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ СЃС‚РёР»СЏ
+        tile.innerText = value > 0 ? value : ''; // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ С‚РѕР»СЊРєРѕ РЅРµРЅСѓР»РµРІС‹С… Р·РЅР°С‡РµРЅРёР№
         gridContainer.appendChild(tile);
     });
 
-    renderBestScore(); // Обновляем отображение лучшего счета
+    renderBestScore(); // РћР±РЅРѕРІР»СЏРµРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р»СѓС‡С€РµРіРѕ СЃС‡РµС‚Р°
 }
 
-// Функция для сохранения пользователей
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 function saveUserScores() {
     localStorage.setItem('users', JSON.stringify(users));
+}
+// Р¤СѓРЅРєС†РёСЏ Р·Р°РіСЂСѓР·РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+function loadUserScores() {
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+        users = JSON.parse(storedUsers);
+    }
 }
 //async function saveUserScores() {
 //    const response = await fetch('http://localhost:3000/save-score', {
@@ -56,13 +63,7 @@ function saveUserScores() {
 //    }
 //}
 
-// Функция загрузки пользователей
-function loadUserScores() {
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-        users = JSON.parse(storedUsers);
-    }
-}
+
 //async function loadUserScores() {
 //    const response = await fetch('http://localhost:3000/load-scores');
 //    if (response.ok) {
@@ -72,67 +73,68 @@ function loadUserScores() {
 //    }
 //}
 
-// Функция для обновления лучшего счета
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ Р»СѓС‡С€РµРіРѕ СЃС‡РµС‚Р°
 function updateUserScore() {
     if (currentUser && score > users[currentUser]) {
-        users[currentUser] = score; // Обновляем лучший счет для текущего пользователя
-        saveUserScores(); // Сохраняем пользователей
+        users[currentUser] = score; // РћР±РЅРѕРІР»СЏРµРј Р»СѓС‡С€РёР№ СЃС‡РµС‚ РґР»СЏ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+        saveUserScores(); // РЎРѕС…СЂР°РЅСЏРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
     }
 
-    // Проверка на глобальный рекорд
+    // РџСЂРѕРІРµСЂРєР° РЅР° РіР»РѕР±Р°Р»СЊРЅС‹Р№ СЂРµРєРѕСЂРґ
     if (score > globalBestScore) {
-        globalBestScore = score; // Обновляем глобальный лучший счет
+        globalBestScore = score; // РћР±РЅРѕРІР»СЏРµРј РіР»РѕР±Р°Р»СЊРЅС‹Р№ Р»СѓС‡С€РёР№ СЃС‡РµС‚
     }
 }
 
-// Функция для обновления отображения счетов
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃС‡РµС‚РѕРІ
 function renderBestScore() {
     const bestScoreContainer = document.getElementById('best-score');
     const currentScoreContainer = document.getElementById('player-score');
 
     if (currentUser) {
-        bestScoreContainer.innerText = `Лучший счет: ${users[currentUser] || 0}`; // Используем || 0, если пользователь никогда не играл
-        currentScoreContainer.innerText = `Текущий счет: ${score}`;
-    } else {
-        bestScoreContainer.innerText = 'Выберите игрока для начала.';
+        bestScoreContainer.innerText = `Р›СѓС‡С€РёР№ СЃС‡РµС‚: ${users[currentUser] || 0}`; // РСЃРїРѕР»СЊР·СѓРµРј || 0, РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРёРєРѕРіРґР° РЅРµ РёРіСЂР°Р»
+        currentScoreContainer.innerText = `РўРµРєСѓС‰РёР№ СЃС‡РµС‚: ${score}`;
+    }
+    else {
+        bestScoreContainer.innerText = 'Р’С‹Р±РµСЂРёС‚Рµ РёРіСЂРѕРєР° РґР»СЏ РЅР°С‡Р°Р»Р°.';
         currentScoreContainer.innerText = '';
     }
 
-    // Отображение глобального рекорда
+    // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РіР»РѕР±Р°Р»СЊРЅРѕРіРѕ СЂРµРєРѕСЂРґР°
     const globalBestScoreContainer = document.getElementById('global-best-score');
-    globalBestScoreContainer.innerText = `Глобальный лучший счет: ${globalBestScore}`;
+    globalBestScoreContainer.innerText = `Р“Р»РѕР±Р°Р»СЊРЅС‹Р№ Р»СѓС‡С€РёР№ СЃС‡РµС‚: ${globalBestScore}`;
 }
 
-// Функция для установки текущего пользователя
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 function setCurrentUser(username) {
     currentUser = username;
     if (!users[currentUser]) {
-        users[currentUser] = 0; // Инициализируем пользователя с нулевым счетом
+        users[currentUser] = 0; // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ РЅСѓР»РµРІС‹Рј СЃС‡РµС‚РѕРј
     }
 }
 
-// Проверка на завершение игры
+// РџСЂРѕРІРµСЂРєР° РЅР° Р·Р°РІРµСЂС€РµРЅРёРµ РёРіСЂС‹
 function checkGameOver() {
-    // Проверяем, есть ли пустые плитки
+    // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РїСѓСЃС‚С‹Рµ РїР»РёС‚РєРё
     if (grid.includes(0)) return false;
 
-    // Проверяем, можно ли объединить плитки
+    // РџСЂРѕРІРµСЂСЏРµРј, РјРѕР¶РЅРѕ Р»Рё РѕР±СЉРµРґРёРЅРёС‚СЊ РїР»РёС‚РєРё
     for (let row = 0; row < 4; row++) {
         for (let col = 0; col < 4; col++) {
             const currentTile = grid[row * 4 + col];
             if (
-                (col < 3 && currentTile === grid[row * 4 + (col + 1)]) || // Проверка справа
-                (row < 3 && currentTile === grid[(row + 1) * 4 + col]) // Проверка вниз
+                (col < 3 && currentTile === grid[row * 4 + (col + 1)]) || // РџСЂРѕРІРµСЂРєР° СЃРїСЂР°РІР°
+                (row < 3 && currentTile === grid[(row + 1) * 4 + col]) // РџСЂРѕРІРµСЂРєР° РІРЅРёР·
             ) {
                 return false;
             }
         }
     }
 
-    return true; // Нет доступных ходов
+    return true; // РќРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… С…РѕРґРѕРІ
 }
 
-// Перемещения
+// РџРµСЂРµРјРµС‰РµРЅРёСЏ
 function moveUp() {
     let moved = false;
     for (let col = 0; col < 4; col++) {
@@ -144,7 +146,8 @@ function moveUp() {
                     moved = true;
                 }
                 grid[col + row * 4] = newColumn[row];
-            } else {
+            }
+            else {
                 grid[col + row * 4] = 0;
             }
         }
@@ -163,7 +166,8 @@ function moveDown() {
                     moved = true;
                 }
                 grid[col + (3 - row) * 4] = newColumn[row];
-            } else {
+            }
+            else {
                 grid[col + (3 - row) * 4] = 0;
             }
         }
@@ -182,7 +186,8 @@ function moveLeft() {
                     moved = true;
                 }
                 grid[row * 4 + col] = newRow[col];
-            } else {
+            }
+            else {
                 grid[row * 4 + col] = 0;
             }
         }
@@ -201,7 +206,8 @@ function moveRight() {
                     moved = true;
                 }
                 grid[row * 4 + (3 - col)] = newRow[col];
-            } else {
+            }
+            else {
                 grid[row * 4 + (3 - col)] = 0;
             }
         }
@@ -209,77 +215,78 @@ function moveRight() {
     return moved;
 }
 
-// Функция для объединения плиток
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±СЉРµРґРёРЅРµРЅРёСЏ РїР»РёС‚РѕРє
 function mergeTiles(tiles) {
     let newTiles = [];
     for (let i = 0; i < tiles.length; i++) {
         if (tiles[i] === tiles[i + 1]) {
             newTiles.push(tiles[i] * 2);
-            score += tiles[i] * 2; // Увеличение счета
-            i++; // Пропустить следующий элемент
-        } else {
+            score += tiles[i] * 2; // РЈРІРµР»РёС‡РµРЅРёРµ СЃС‡РµС‚Р°
+            i++; // РџСЂРѕРїСѓСЃС‚РёС‚СЊ СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
+        }
+        else {
             newTiles.push(tiles[i]);
         }
     }
     return newTiles;
 }
 
-// Обработчик формы ввода имени пользователя
+// РћР±СЂР°Р±РѕС‚С‡РёРє С„РѕСЂРјС‹ РІРІРѕРґР° РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 document.getElementById('username-form').addEventListener('submit', (event) => {
-    event.preventDefault(); // Отменяем стандартное поведение формы
+    event.preventDefault(); // РћС‚РјРµРЅСЏРµРј СЃС‚Р°РЅРґР°СЂС‚РЅРѕРµ РїРѕРІРµРґРµРЅРёРµ С„РѕСЂРјС‹
     const username = event.target.username.value.trim();
     if (username) {
-        setCurrentUser(username); // Устанавливаем текущего пользователя
-        initializeGame(); // Инициализируем игру при успешном вводе имени
-        renderBestScore(); // Отображаем лучший счет
+        setCurrentUser(username); // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+        initializeGame(); // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РёРіСЂСѓ РїСЂРё СѓСЃРїРµС€РЅРѕРј РІРІРѕРґРµ РёРјРµРЅРё
+        renderBestScore(); // РћС‚РѕР±СЂР°Р¶Р°РµРј Р»СѓС‡С€РёР№ СЃС‡РµС‚
     }
 });
 
-// Обработчик событий клавиатуры
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёР№ РєР»Р°РІРёР°С‚СѓСЂС‹
 document.addEventListener('keydown', event => {
-    let moved = false; // Флаг, указывающий, произошло ли движение плиток
+    let moved = false; // Р¤Р»Р°Рі, СѓРєР°Р·С‹РІР°СЋС‰РёР№, РїСЂРѕРёР·РѕС€Р»Рѕ Р»Рё РґРІРёР¶РµРЅРёРµ РїР»РёС‚РѕРє
     switch (event.key) {
         case 'ArrowUp':
-            moved = moveUp(); // Функция перемещения вверх
+            moved = moveUp(); // Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РІРІРµСЂС…
             break;
         case 'ArrowDown':
-            moved = moveDown(); // Функция перемещения вниз
+            moved = moveDown(); // Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РІРЅРёР·
             break;
         case 'ArrowLeft':
-            moved = moveLeft(); // Функция перемещения влево
+            moved = moveLeft(); // Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РІР»РµРІРѕ
             break;
         case 'ArrowRight':
-            moved = moveRight(); // Функция перемещения вправо
+            moved = moveRight(); // Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РІРїСЂР°РІРѕ
             break;
     }
 
-    // Предотвратить стандартное поведение прокрутки
+    // РџСЂРµРґРѕС‚РІСЂР°С‚РёС‚СЊ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРµ РїРѕРІРµРґРµРЅРёРµ РїСЂРѕРєСЂСѓС‚РєРё
     if (moved) {
-        event.preventDefault(); // Отключаем прокрутку страницы
-        addRandomTile(); // Добавляем новую плитку после любого движения
-        updateUserScore(); // Обновляем лучший счет
-        render(); // Обновляем отображение
-        renderBestScore(); // Обновляем информацию о счетах на экране
+        event.preventDefault(); // РћС‚РєР»СЋС‡Р°РµРј РїСЂРѕРєСЂСѓС‚РєСѓ СЃС‚СЂР°РЅРёС†С‹
+        addRandomTile(); // Р”РѕР±Р°РІР»СЏРµРј РЅРѕРІСѓСЋ РїР»РёС‚РєСѓ РїРѕСЃР»Рµ Р»СЋР±РѕРіРѕ РґРІРёР¶РµРЅРёСЏ
+        updateUserScore(); // РћР±РЅРѕРІР»СЏРµРј Р»СѓС‡С€РёР№ СЃС‡РµС‚
+        render(); // РћР±РЅРѕРІР»СЏРµРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ
+        renderBestScore(); // РћР±РЅРѕРІР»СЏРµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃС‡РµС‚Р°С… РЅР° СЌРєСЂР°РЅРµ
 
-        if (checkGameOver()) { // Проверка на завершение игры
-            alert("Игра окончена!"); // Сообщение о завершении игры
+        if (checkGameOver()) { // РџСЂРѕРІРµСЂРєР° РЅР° Р·Р°РІРµСЂС€РµРЅРёРµ РёРіСЂС‹
+            alert("РРіСЂР° РѕРєРѕРЅС‡РµРЅР°!"); // РЎРѕРѕР±С‰РµРЅРёРµ Рѕ Р·Р°РІРµСЂС€РµРЅРёРё РёРіСЂС‹
         }
     }
 });
 
-// Обработчик для кнопки "Перезапустить"
+// РћР±СЂР°Р±РѕС‚С‡РёРє РґР»СЏ РєРЅРѕРїРєРё "РџРµСЂРµР·Р°РїСѓСЃС‚РёС‚СЊ"
 document.getElementById('restart').addEventListener('click', () => {
-    initializeGame(); // Инициализируем игру заново
-    renderBestScore(); // Обновляем отображение счетов
+    initializeGame(); // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РёРіСЂСѓ Р·Р°РЅРѕРІРѕ
+    renderBestScore(); // РћР±РЅРѕРІР»СЏРµРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃС‡РµС‚РѕРІ
 });
 
-// Загрузка пользователей из localStorage
+// Р—Р°РіСЂСѓР·РєР° РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РёР· localStorage
 loadUserScores();
-renderBestScore(); // Отображаем лучший счет после загрузки
+renderBestScore(); // РћС‚РѕР±СЂР°Р¶Р°РµРј Р»СѓС‡С€РёР№ СЃС‡РµС‚ РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё
 
-// Инициализация глобального рекорда при загрузке пользователей
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅРѕРіРѕ СЂРµРєРѕСЂРґР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 Object.values(users).forEach(userScore => {
     if (userScore > globalBestScore) {
-        globalBestScore = userScore; // Устанавливаем глобальный лучший счет при загрузке
+        globalBestScore = userScore; // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РіР»РѕР±Р°Р»СЊРЅС‹Р№ Р»СѓС‡С€РёР№ СЃС‡РµС‚ РїСЂРё Р·Р°РіСЂСѓР·РєРµ
     }
 });
