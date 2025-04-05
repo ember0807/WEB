@@ -195,10 +195,10 @@ body {
     .grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(4, 1fr); 
+        grid-template-rows: repeat(4, 1fr);
         gap: 5px; /* Отступы между плитками */
         width: 90vw; /* Ширина сетки */
-        height: auto; /* Высота сетки, соответствующая плиткам */
+        height: 190vw; /* Высота сетки, соответствующая плиткам */
         padding: 10px;
     }
 
