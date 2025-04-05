@@ -273,7 +273,49 @@ document.addEventListener('keydown', event => {
         }
     }
 });
+let startX, startY;
 
+// Обработчик касания
+document.addEventListener('touchstart', (event) => {
+    const touch = event.touches[0]; // Если несколько касаний, использовать первое
+    startX = touch.clientX;
+    startY = touch.clientY;
+});
+
+document.addEventListener('touchend', (event) => {
+    const touch = event.changedTouches[0]; // Используем завершенное касание
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    let moved = false;
+
+    // Определяем направление перемещения
+    if (Math.abs(deltaX) > Math.abs(deltaY)) { // Горизонтальное движение
+        if (deltaX > 0) {
+            moved = moveRight();
+        } else {
+            moved = moveLeft();
+        }
+    } else { // Вертикальное движение
+        if (deltaY > 0) {
+            moved = moveDown();
+        } else {
+            moved = moveUp();
+        }
+    }
+
+    if (moved) {
+        event.preventDefault(); // Отключаем прокрутку страницы
+        addRandomTile(); // Добавляем новую плитку после любого движения
+        updateUserScore(); // Обновляем лучший счет
+        render(); // Обновляем отображение
+        renderBestScore(); // Обновляем информацию о счетах на экране
+
+        if (checkGameOver()) { // Проверка на завершение игры
+            alert("Игра окончена!"); // Сообщение о завершении игры
+        }
+    }
+});
 // Обработчик для кнопки "Перезапустить"
 document.getElementById('restart').addEventListener('click', () => {
     initializeGame(); // Инициализируем игру заново
